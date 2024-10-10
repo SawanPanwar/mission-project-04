@@ -1,0 +1,111 @@
++------------------------------+
+|          BaseBean            |
++------------------------------+
+| - id: long                   |
+| - createdBy: String          |
+| - modifiedBy: String         |
+| - createdDatetime: Timestamp |
+| - modifiedDatetime: Timestamp|
++------------------------------+
+
++------------------------------+
+|          RoleBean            |
++------------------------------+
+| - name: String               |
+| - description: String        |
++------------------------------+
+
++------------------------------+
+|          UserBean            |
++------------------------------+
+| - firstName: String          |
+| - lastName: String           |
+| - login: String              |
+| - password: String           |
+| - confirmPassword: String    |
+| - dob: Date                  |
+| - mobileNo: String           |
+| - roleId: long               |
+| - gender: String             |
++------------------------------+
+
++------------------------------+
+|        CollegeBean           |
++------------------------------+
+| - name: String               |
+| - address: String            |
+| - state: String              |
+| - city: String               |
+| - phoneNo: String            |
++------------------------------+
+
++------------------------------+
+|        StudentBean           |
++------------------------------+
+| - firstName: String          |
+| - lastName: String           |
+| - dob: Date                  |
+| - gender: String             |
+| - mobileNo: String           |
+| - email: String              |
+| - collegeId: long            |
+| - collegeName: String        |
++------------------------------+
+
++------------------------------+
+|        MarksheetBean         |
++------------------------------+
+| - rollNo: String             |
+| - studentId: long            |
+| - name: String               |
+| - physics: Integer           |
+| - chemistry: Integer         |
+| - maths: Integer             |
++------------------------------+
+
++------------------------------+
+|        CourseBean            |
++------------------------------+
+| - name: String               |
+| - duration: String           |
+| - description: String        |
++------------------------------+
+
++------------------------------+
+|        SubjectBean           |
++------------------------------+
+| - name: String               |
+| - courseId: long             |
+| - courseName: String         |
+| - description: String        |
++------------------------------+
+
++------------------------------+
+|        TimetableBean         |
++------------------------------+
+| - semester: String           |
+| - description: String        |
+| - examDate: Date             |
+| - examTime: String           |
+| - courseId: long             |
+| - courseName: String         |
+| - subjectId: long            |
+| - subjectName: String        |
++------------------------------+
+
++------------------------------+
+|        FacultyBean           |
++------------------------------+
+| - firstName: String          |
+| - lastName: String           |
+| - dob: Date                  |
+| - gender: String             |
+| - mobileNo: String           |
+| - email: String              |
+| - collegeId: long            |
+| - collegeName: String        |
+| - courseId: long             |
+| - courseName: String         |
+| - subjectId: long            |
+| - subjectName: String        |
++------------------------------+
