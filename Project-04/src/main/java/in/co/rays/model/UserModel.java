@@ -26,9 +26,9 @@ public class UserModel {
 	public void add(UserBean bean) throws Exception {
 
 		int pk = nextPk();
-
+		
 		Connection conn = JDBCDataSource.getConnection();
-
+		
 		PreparedStatement pstmt = conn
 				.prepareStatement("insert into st_user values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

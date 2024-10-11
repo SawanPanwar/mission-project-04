@@ -9,6 +9,7 @@ public class TestUserModel {
 		// testFindByPk();
 		// testFindByLogin();
 		// testSearch();
+		// testAuthenticate();
 	}
 
 	public static void testAdd() throws Exception {
@@ -34,4 +35,7 @@ public class TestUserModel {
 
 	}
 
+	public static void testAuthenticate() throws Exception {
+
+	}
 }

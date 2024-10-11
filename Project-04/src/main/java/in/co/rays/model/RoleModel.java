@@ -23,13 +23,9 @@ public class RoleModel {
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
-
 			pk = rs.getInt(1);
-
 		}
-
 		JDBCDataSource.closeConnection(conn);
-
 		return pk + 1;
 	}
 
@@ -130,9 +126,7 @@ public class RoleModel {
 			bean.setCreatedDatetime(rs.getTimestamp(6));
 			bean.setModifiedDatetime(rs.getTimestamp(7));
 		}
-
 		JDBCDataSource.closeConnection(conn);
-
 		return bean;
 	}
 
@@ -158,9 +152,7 @@ public class RoleModel {
 			bean.setCreatedDatetime(rs.getTimestamp(6));
 			bean.setModifiedDatetime(rs.getTimestamp(7));
 		}
-
 		JDBCDataSource.closeConnection(conn);
-
 		return bean;
 	}
 
@@ -200,9 +192,7 @@ public class RoleModel {
 			bean.setModifiedDatetime(rs.getTimestamp(7));
 			list.add(bean);
 		}
-
 		JDBCDataSource.closeConnection(conn);
-
 		return list;
 	}
 
