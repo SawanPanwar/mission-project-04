@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.rays.bean.UserBean;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.util.JDBCDataSource;
 
 public class UserModel {
@@ -25,10 +26,16 @@ public class UserModel {
 
 	public void add(UserBean bean) throws Exception {
 
+		UserBean existBean = findByLogin(bean.getLogin());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("login already exist..!!");
+		}
+
 		int pk = nextPk();
-		
+
 		Connection conn = JDBCDataSource.getConnection();
-		
+
 		PreparedStatement pstmt = conn
 				.prepareStatement("insert into st_user values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -54,6 +61,12 @@ public class UserModel {
 	}
 
 	public void update(UserBean bean) throws Exception {
+
+		UserBean existBean = findByLogin(bean.getLogin());
+
+		if (existBean != null && bean.getId() != existBean.getId()) {
+			throw new DuplicateRecordException("login already exist..!!");
+		}
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -199,7 +212,7 @@ public class UserModel {
 
 		Connection conn = JDBCDataSource.getConnection();
 
-		StringBuffer sql = new StringBuffer("select * from user where 1=1");
+		StringBuffer sql = new StringBuffer("select * from st_user where 1=1");
 
 		if (bean != null) {
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {

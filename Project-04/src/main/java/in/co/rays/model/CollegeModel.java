@@ -3,6 +3,8 @@ package in.co.rays.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import in.co.rays.bean.CollegeBean;
 import in.co.rays.exception.DuplicateRecordException;
@@ -158,4 +160,46 @@ public class CollegeModel {
 		return bean;
 	}
 
+	public List search(CollegeBean bean, int pageNo, int pageSize) throws Exception {
+
+		Connection conn = JDBCDataSource.getConnection();
+
+		StringBuffer sql = new StringBuffer("select * from st_college where 1=1");
+
+		if (bean != null) {
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and first_name like '" + bean.getName() + "%'");
+			}
+		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+
+		System.out.println("sql ==>> " + sql.toString());
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+
+		ResultSet rs = pstmt.executeQuery();
+
+		List list = new ArrayList();
+
+		while (rs.next()) {
+			bean = new CollegeBean();
+			bean.setId(rs.getLong(1));
+			bean.setName(rs.getString(2));
+			bean.setAddress(rs.getString(3));
+			bean.setState(rs.getString(4));
+			bean.setCity(rs.getString(5));
+			bean.setPhoneNo(rs.getString(6));
+			bean.setCreatedBy(rs.getString(7));
+			bean.setModifiedBy(rs.getString(8));
+			bean.setCreatedDatetime(rs.getTimestamp(9));
+			bean.setModifiedDatetime(rs.getTimestamp(10));
+			list.add(bean);
+		}
+		JDBCDataSource.closeConnection(conn);
+		return list;
+	}
 }
