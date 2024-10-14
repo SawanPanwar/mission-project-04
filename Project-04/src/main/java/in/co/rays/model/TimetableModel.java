@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.co.rays.bean.CourseBean;
+import in.co.rays.bean.SubjectBean;
 import in.co.rays.bean.TimetableBean;
 import in.co.rays.util.JDBCDataSource;
 
@@ -24,6 +26,14 @@ public class TimetableModel {
 	}
 
 	public void add(TimetableBean bean) throws Exception {
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCourseName(courseBean.getName());
+
+		SubjectModel subjectModel = new SubjectModel();
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
+		bean.setSubjectName(subjectBean.getName());
 
 		int pk = nextPk();
 
@@ -55,6 +65,14 @@ public class TimetableModel {
 	}
 
 	public void update(TimetableBean bean) throws Exception {
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCourseName(courseBean.getName());
+
+		SubjectModel subjectModel = new SubjectModel();
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
+		bean.setSubjectName(subjectBean.getName());
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -106,38 +124,6 @@ public class TimetableModel {
 		PreparedStatement pstmt = conn.prepareStatement("select * from st_timetable where id = ?");
 
 		pstmt.setLong(1, id);
-
-		ResultSet rs = pstmt.executeQuery();
-
-		TimetableBean bean = null;
-
-		while (rs.next()) {
-			bean = new TimetableBean();
-			bean.setId(rs.getLong(1));
-			bean.setSemester(rs.getString(2));
-			bean.setDescription(rs.getString(3));
-			bean.setExamDate(rs.getDate(4));
-			bean.setExamTime(rs.getString(5));
-			bean.setCourseId(rs.getLong(6));
-			bean.setCourseName(rs.getString(7));
-			bean.setSubjectId(rs.getLong(8));
-			bean.setSubjectName(rs.getString(9));
-			bean.setCreatedBy(rs.getString(10));
-			bean.setModifiedBy(rs.getString(11));
-			bean.setCreatedDatetime(rs.getTimestamp(12));
-			bean.setModifiedDatetime(rs.getTimestamp(13));
-		}
-		JDBCDataSource.closeConnection(conn);
-		return bean;
-	}
-
-	public TimetableBean findByName(String name) throws Exception {
-
-		Connection conn = JDBCDataSource.getConnection();
-
-		PreparedStatement pstmt = conn.prepareStatement("select * from st_timetable where name = ?");
-
-		pstmt.setString(1, name);
 
 		ResultSet rs = pstmt.executeQuery();
 

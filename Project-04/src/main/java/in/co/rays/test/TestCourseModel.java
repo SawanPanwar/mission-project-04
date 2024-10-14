@@ -11,20 +11,20 @@ import in.co.rays.model.CourseModel;
 public class TestCourseModel {
 
 	public static void main(String[] args) throws Exception {
-		testAdd();
+		// testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFindByPk();
 		// testFindByName();
-		// testSearch();
+		testSearch();
 	}
 
 	public static void testAdd() throws Exception {
 
 		CourseBean bean = new CourseBean();
-		bean.setName("BE");
-		bean.setDuration("1 year");
-		bean.setDescription("BE");
+		bean.setName("test");
+		bean.setDuration("3 year");
+		bean.setDescription("test");
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -41,15 +41,16 @@ public class TestCourseModel {
 		CourseModel model = new CourseModel();
 
 		CourseBean bean = model.findByPk(1);
-		bean.setName("student");
-		bean.setDescription("student");
+		bean.setName("BE");
+		bean.setDuration("4 year");
+		bean.setDescription("BE");
 
 		model.update(bean);
 	}
 
 	public static void testDelete() throws Exception {
 		CourseModel model = new CourseModel();
-		model.delete(1);
+		model.delete(5);
 	}
 
 	public static void testFindByPk() throws Exception {
@@ -76,7 +77,7 @@ public class TestCourseModel {
 
 		CourseModel model = new CourseModel();
 
-		CourseBean bean = model.findByName("BE");
+		CourseBean bean = model.findByName("abc");
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -95,6 +96,7 @@ public class TestCourseModel {
 	public static void testSearch() throws Exception {
 
 		CourseBean bean = new CourseBean();
+		bean.setName("b");
 
 		CourseModel model = new CourseModel();
 

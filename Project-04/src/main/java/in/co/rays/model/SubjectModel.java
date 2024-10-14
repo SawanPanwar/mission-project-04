@@ -28,9 +28,7 @@ public class SubjectModel {
 	public void add(SubjectBean bean) throws Exception {
 
 		CourseModel courseModel = new CourseModel();
-
 		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
-
 		bean.setCourseName(courseBean.getName());
 
 		SubjectBean existBean = findByName(bean.getName());
@@ -64,6 +62,10 @@ public class SubjectModel {
 	}
 
 	public void update(SubjectBean bean) throws Exception {
+		
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCourseName(courseBean.getName());
 
 		SubjectBean existBean = findByName(bean.getName());
 

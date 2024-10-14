@@ -22,7 +22,7 @@ public class TestCollgeModel {
 	public static void testAdd() throws Exception {
 
 		CollegeBean bean = new CollegeBean();
-		bean.setName("Medicaps");
+		bean.setName("test");
 		bean.setAddress("indore");
 		bean.setState("MP");
 		bean.setCity("indore");
@@ -40,8 +40,8 @@ public class TestCollgeModel {
 
 		CollegeModel model = new CollegeModel();
 
-		CollegeBean bean = model.findByPk(1);
-		bean.setName("Medicaps");
+		CollegeBean bean = model.findByPk(4);
+		bean.setName("Bansal");
 		bean.setAddress("indore");
 		bean.setState("MP");
 
@@ -50,14 +50,14 @@ public class TestCollgeModel {
 
 	public static void testDelete() throws Exception {
 		CollegeModel model = new CollegeModel();
-		model.delete(1);
+		model.delete(6);
 	}
 
 	public static void testFindByPk() throws Exception {
 
 		CollegeModel model = new CollegeModel();
 
-		CollegeBean bean = model.findByPk(1);
+		CollegeBean bean = model.findByPk(2);
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -79,7 +79,7 @@ public class TestCollgeModel {
 
 		CollegeModel model = new CollegeModel();
 
-		CollegeBean bean = model.findByName("Medicaps");
+		CollegeBean bean = model.findByName("Medi");
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -99,9 +99,10 @@ public class TestCollgeModel {
 
 	public static void testSearch() throws Exception {
 
-		CollegeModel model = new CollegeModel();
-
 		CollegeBean bean = new CollegeBean();
+		// bean.setName("m");
+
+		CollegeModel model = new CollegeModel();
 
 		List list = model.search(bean, 1, 10);
 

@@ -168,7 +168,7 @@ public class CollegeModel {
 
 		if (bean != null) {
 			if (bean.getName() != null && bean.getName().length() > 0) {
-				sql.append(" and first_name like '" + bean.getName() + "%'");
+				sql.append(" and name like '" + bean.getName() + "%'");
 			}
 		}
 

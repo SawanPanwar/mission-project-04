@@ -11,20 +11,19 @@ import in.co.rays.model.MarksheetModel;
 public class TestMarksheetModel {
 
 	public static void main(String[] args) throws Exception {
-		testAdd();
+		// testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFindByPk();
 		// testFindByRollNo();
-		// testSearch();
+		testSearch();
 	}
 
 	public static void testAdd() throws Exception {
 
 		MarksheetBean bean = new MarksheetBean();
-		bean.setRollNo("BE101");
-		bean.setStudentId(1);
-		bean.setName("abhay");
+		bean.setRollNo("BE103");
+		bean.setStudentId(4);
 		bean.setPhysics(67);
 		bean.setChemistry(78);
 		bean.setMaths(77);
@@ -44,14 +43,15 @@ public class TestMarksheetModel {
 		MarksheetModel model = new MarksheetModel();
 
 		MarksheetBean bean = model.findByPk(1);
-		bean.setName("Medicaps");
+		bean.setRollNo("BE103");
+		bean.setStudentId(4);
 
 		model.update(bean);
 	}
 
 	public static void testDelete() throws Exception {
 		MarksheetModel model = new MarksheetModel();
-		model.delete(1);
+		model.delete(3);
 	}
 
 	public static void testFindByPk() throws Exception {
@@ -103,6 +103,7 @@ public class TestMarksheetModel {
 	public static void testSearch() throws Exception {
 
 		MarksheetBean bean = new MarksheetBean();
+		// bean.setName("b");
 
 		MarksheetModel model = new MarksheetModel();
 

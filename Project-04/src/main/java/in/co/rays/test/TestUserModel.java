@@ -11,25 +11,25 @@ import in.co.rays.model.UserModel;
 public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
-		testAdd();
+		// testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFindByPk();
 		// testFindByLogin();
-		// testSearch();
 		// testAuthenticate();
+		// testSearch();
 	}
 
 	public static void testAdd() throws Exception {
 
 		UserBean bean = new UserBean();
-		bean.setFirstName("Sawan");
-		bean.setLastName("Panwar");
-		bean.setLogin("sawan@gmail.com");
+		bean.setFirstName("Anshul");
+		bean.setLastName("Prajapati");
+		bean.setLogin("anshul@gmail.com");
 		bean.setPassword("1234");
 		bean.setDob(new Date());
-		bean.setMobileNo("9998899889");
-		bean.setRoleId(1);
+		bean.setMobileNo("9998890811");
+		bean.setRoleId(2);
 		bean.setGender("male");
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
@@ -44,21 +44,18 @@ public class TestUserModel {
 
 		UserModel model = new UserModel();
 
-		UserBean bean = model.findByPk(1);
-		bean.setFirstName("Sawan");
-		bean.setLastName("Panwar");
+		UserBean bean = model.findByPk(3);
+		bean.setFirstName("Aman");
+		bean.setLastName("Gupta");
 		bean.setLogin("sawan@gmail.com");
 		bean.setPassword("1234");
-		bean.setDob(new Date());
 
 		model.update(bean);
 	}
 
 	public static void testDelete() throws Exception {
-
 		UserModel model = new UserModel();
 		model.delete(1);
-
 	}
 
 	public static void testFindByPk() throws Exception {
@@ -115,7 +112,7 @@ public class TestUserModel {
 
 		UserModel model = new UserModel();
 
-		UserBean bean = model.authenticate("sawan@gmail.com", "123");
+		UserBean bean = model.authenticate("aman@gmail.com", "1234");
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -139,6 +136,7 @@ public class TestUserModel {
 	public static void testSearch() throws Exception {
 
 		UserBean bean = new UserBean();
+		// bean.setFirstName("k");
 
 		UserModel model = new UserModel();
 

@@ -11,11 +11,11 @@ import in.co.rays.model.RoleModel;
 public class TestRoleModel {
 
 	public static void main(String[] args) throws Exception {
-		testAdd();
+		// testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFindByPk();
-		// testFindByName();
+		testFindByName();
 		// testSearch();
 	}
 

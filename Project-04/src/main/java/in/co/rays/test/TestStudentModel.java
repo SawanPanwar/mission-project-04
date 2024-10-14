@@ -14,7 +14,7 @@ public class TestStudentModel {
 
 		// testAdd();
 		// testUpdate();
-		// testDelete()
+		// testDelete();
 		// testFindByPk();
 		// testFindByEmail();
 		testSearch();
@@ -24,13 +24,13 @@ public class TestStudentModel {
 
 		StudentBean bean = new StudentBean();
 
-		bean.setFirstName("abc");
-		bean.setLastName("xyz");
+		bean.setFirstName("test");
+		bean.setLastName("Malviya");
 		bean.setDob(new Date());
 		bean.setGender("male");
-		bean.setMobileNo("7648880017");
-		bean.setEmail("avnish@gmail.com");
-		bean.setCollegeId(1);
+		bean.setMobileNo("7648880088");
+		bean.setEmail("test@gmail.com");
+		bean.setCollegeId(3);
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -45,10 +45,10 @@ public class TestStudentModel {
 
 		StudentModel model = new StudentModel();
 
-		StudentBean bean = model.findByPk(2);
+		StudentBean bean = model.findByPk(4);
 
-		bean.setFirstName("Avnish");
-		bean.setEmail("avnish@gmail.com");
+		bean.setFirstName("abc");
+		bean.setEmail("test@gmail.com");
 
 		model.update(bean);
 	}
@@ -65,7 +65,7 @@ public class TestStudentModel {
 
 		StudentModel model = new StudentModel();
 
-		StudentBean bean = model.findByPk(10);
+		StudentBean bean = model.findByPk(1);
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -90,7 +90,7 @@ public class TestStudentModel {
 
 		StudentModel model = new StudentModel();
 
-		StudentBean bean = model.findByEmail("abc@gmail.com");
+		StudentBean bean = model.findByEmail("uday@gmail.com");
 
 		if (bean != null) {
 			System.out.print(bean.getId());
@@ -114,10 +114,11 @@ public class TestStudentModel {
 	public static void testSearch() throws Exception {
 
 		StudentBean bean = new StudentBean();
+		bean.setFirstName("u");
 
 		StudentModel model = new StudentModel();
 
-		List list = model.search(null, 1, 10);
+		List list = model.search(bean, 1, 10);
 
 		Iterator it = list.iterator();
 

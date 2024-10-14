@@ -27,17 +27,15 @@ public class StudentModel {
 
 	public void add(StudentBean bean) throws Exception {
 
+		CollegeModel collegeModel = new CollegeModel();
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
+		bean.setCollegeName(collegeBean.getName());
+
 		StudentBean existBean = findByEmail(bean.getEmail());
 
 		if (existBean != null) {
 			throw new DuplicateRecordException("email already exist..!!");
 		}
-
-		CollegeModel collegeModel = new CollegeModel();
-
-		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
-
-		bean.setCollegeName(collegeBean.getName());
 
 		int pk = nextPk();
 
@@ -69,17 +67,15 @@ public class StudentModel {
 
 	public void update(StudentBean bean) throws Exception {
 
+		CollegeModel collegeModel = new CollegeModel();
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
+		bean.setCollegeName(collegeBean.getName());
+
 		StudentBean existBean = findByEmail(bean.getEmail());
 
 		if (existBean != null && bean.getId() != existBean.getId()) {
 			throw new DuplicateRecordException("email already exist..!!");
 		}
-
-		CollegeModel collegeModel = new CollegeModel();
-
-		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
-
-		bean.setCollegeName(collegeBean.getName());
 
 		Connection conn = JDBCDataSource.getConnection();
 

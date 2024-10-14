@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.rays.bean.MarksheetBean;
+import in.co.rays.bean.StudentBean;
 import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.util.JDBCDataSource;
 
@@ -25,6 +26,10 @@ public class MarksheetModel {
 	}
 
 	public void add(MarksheetBean bean) throws Exception {
+
+		StudentModel studentModel = new StudentModel();
+		StudentBean studentbean = studentModel.findByPk(bean.getStudentId());
+		bean.setName(studentbean.getFirstName() + " " + studentbean.getLastName());
 
 		MarksheetBean existBean = findByRoll(bean.getRollNo());
 
@@ -60,6 +65,10 @@ public class MarksheetModel {
 	}
 
 	public void update(MarksheetBean bean) throws Exception {
+
+		StudentModel studentModel = new StudentModel();
+		StudentBean studentbean = studentModel.findByPk(bean.getStudentId());
+		bean.setName(studentbean.getFirstName() + " " + studentbean.getLastName());
 
 		MarksheetBean existBean = findByRoll(bean.getRollNo());
 
