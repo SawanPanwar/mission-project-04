@@ -15,13 +15,9 @@ public class RoleModel {
 	public Integer nextPk() throws Exception {
 
 		int pk = 0;
-
 		Connection conn = JDBCDataSource.getConnection();
-
 		PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_role");
-
 		ResultSet rs = pstmt.executeQuery();
-
 		while (rs.next()) {
 			pk = rs.getInt(1);
 		}
@@ -195,5 +191,4 @@ public class RoleModel {
 		JDBCDataSource.closeConnection(conn);
 		return list;
 	}
-
 }

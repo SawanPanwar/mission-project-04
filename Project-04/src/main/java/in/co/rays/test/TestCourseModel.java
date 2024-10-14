@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import in.co.rays.bean.RoleBean;
-import in.co.rays.model.RoleModel;
+import in.co.rays.bean.CourseBean;
+import in.co.rays.model.CourseModel;
 
-public class TestRoleModel {
+public class TestCourseModel {
 
 	public static void main(String[] args) throws Exception {
 		testAdd();
@@ -21,15 +21,16 @@ public class TestRoleModel {
 
 	public static void testAdd() throws Exception {
 
-		RoleBean bean = new RoleBean();
-		bean.setName("kiosk");
-		bean.setDescription("kiosk");
+		CourseBean bean = new CourseBean();
+		bean.setName("BE");
+		bean.setDuration("1 year");
+		bean.setDescription("BE");
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
-		RoleModel model = new RoleModel();
+		CourseModel model = new CourseModel();
 
 		model.add(bean);
 
@@ -37,34 +38,30 @@ public class TestRoleModel {
 
 	public static void testUpdate() throws Exception {
 
-		RoleBean bean = new RoleBean();
-		bean.setId(2);
+		CourseModel model = new CourseModel();
+
+		CourseBean bean = model.findByPk(1);
 		bean.setName("student");
 		bean.setDescription("student");
-		bean.setCreatedBy("admin@gmail.com");
-		bean.setModifiedBy("admin@gmail.com");
-		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
-		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-
-		RoleModel model = new RoleModel();
 
 		model.update(bean);
 	}
 
 	public static void testDelete() throws Exception {
-		RoleModel model = new RoleModel();
+		CourseModel model = new CourseModel();
 		model.delete(1);
 	}
 
 	public static void testFindByPk() throws Exception {
 
-		RoleModel model = new RoleModel();
+		CourseModel model = new CourseModel();
 
-		RoleBean bean = model.findByPk(1);
+		CourseBean bean = model.findByPk(1);
 
 		if (bean != null) {
 			System.out.print(bean.getId());
 			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getDuration());
 			System.out.print("\t" + bean.getDescription());
 			System.out.print("\t" + bean.getCreatedBy());
 			System.out.print("\t" + bean.getModifiedBy());
@@ -77,13 +74,14 @@ public class TestRoleModel {
 
 	public static void testFindByName() throws Exception {
 
-		RoleModel model = new RoleModel();
+		CourseModel model = new CourseModel();
 
-		RoleBean bean = model.findByName("admin");
+		CourseBean bean = model.findByName("BE");
 
 		if (bean != null) {
 			System.out.print(bean.getId());
 			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getDuration());
 			System.out.print("\t" + bean.getDescription());
 			System.out.print("\t" + bean.getCreatedBy());
 			System.out.print("\t" + bean.getModifiedBy());
@@ -96,18 +94,19 @@ public class TestRoleModel {
 
 	public static void testSearch() throws Exception {
 
-		RoleBean bean = new RoleBean();
+		CourseBean bean = new CourseBean();
 
-		RoleModel model = new RoleModel();
+		CourseModel model = new CourseModel();
 
 		List list = model.search(bean, 1, 10);
 
 		Iterator it = list.iterator();
 
 		while (it.hasNext()) {
-			bean = (RoleBean) it.next();
+			bean = (CourseBean) it.next();
 			System.out.print(bean.getId());
 			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getDuration());
 			System.out.print("\t" + bean.getDescription());
 			System.out.print("\t" + bean.getCreatedBy());
 			System.out.print("\t" + bean.getModifiedBy());

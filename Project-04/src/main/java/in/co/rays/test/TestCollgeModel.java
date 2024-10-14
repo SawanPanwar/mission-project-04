@@ -2,6 +2,8 @@ package in.co.rays.test;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.bean.CollegeBean;
 import in.co.rays.model.CollegeModel;
@@ -9,9 +11,12 @@ import in.co.rays.model.CollegeModel;
 public class TestCollgeModel {
 
 	public static void main(String[] args) throws Exception {
-
-		testAdd();
-
+		// testAdd();
+		// testUpdate();
+		// testDelete();
+		// testFindByPk();
+		// testFindByName();
+		testSearch();
 	}
 
 	public static void testAdd() throws Exception {
@@ -28,9 +33,92 @@ public class TestCollgeModel {
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
 		CollegeModel model = new CollegeModel();
-
 		model.add(bean);
-
 	}
 
+	public static void testUpdate() throws Exception {
+
+		CollegeModel model = new CollegeModel();
+
+		CollegeBean bean = model.findByPk(1);
+		bean.setName("Medicaps");
+		bean.setAddress("indore");
+		bean.setState("MP");
+
+		model.update(bean);
+	}
+
+	public static void testDelete() throws Exception {
+		CollegeModel model = new CollegeModel();
+		model.delete(1);
+	}
+
+	public static void testFindByPk() throws Exception {
+
+		CollegeModel model = new CollegeModel();
+
+		CollegeBean bean = model.findByPk(1);
+
+		if (bean != null) {
+			System.out.print(bean.getId());
+			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getAddress());
+			System.out.print("\t" + bean.getState());
+			System.out.print("\t" + bean.getCity());
+			System.out.print("\t" + bean.getPhoneNo());
+			System.out.print("\t" + bean.getCreatedBy());
+			System.out.print("\t" + bean.getModifiedBy());
+			System.out.print("\t" + bean.getCreatedDatetime());
+			System.out.println("\t" + bean.getModifiedDatetime());
+		} else {
+			System.out.println("id not found");
+		}
+	}
+
+	public static void testFindByName() throws Exception {
+
+		CollegeModel model = new CollegeModel();
+
+		CollegeBean bean = model.findByName("Medicaps");
+
+		if (bean != null) {
+			System.out.print(bean.getId());
+			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getAddress());
+			System.out.print("\t" + bean.getState());
+			System.out.print("\t" + bean.getCity());
+			System.out.print("\t" + bean.getPhoneNo());
+			System.out.print("\t" + bean.getCreatedBy());
+			System.out.print("\t" + bean.getModifiedBy());
+			System.out.print("\t" + bean.getCreatedDatetime());
+			System.out.println("\t" + bean.getModifiedDatetime());
+		} else {
+			System.out.println("college name not found");
+		}
+	}
+
+	public static void testSearch() throws Exception {
+
+		CollegeModel model = new CollegeModel();
+
+		CollegeBean bean = new CollegeBean();
+
+		List list = model.search(bean, 1, 10);
+
+		Iterator it = list.iterator();
+
+		while (it.hasNext()) {
+			bean = (CollegeBean) it.next();
+			System.out.print(bean.getId());
+			System.out.print("\t" + bean.getName());
+			System.out.print("\t" + bean.getAddress());
+			System.out.print("\t" + bean.getState());
+			System.out.print("\t" + bean.getCity());
+			System.out.print("\t" + bean.getPhoneNo());
+			System.out.print("\t" + bean.getCreatedBy());
+			System.out.print("\t" + bean.getModifiedBy());
+			System.out.print("\t" + bean.getCreatedDatetime());
+			System.out.println("\t" + bean.getModifiedDatetime());
+		}
+	}
 }
