@@ -17,15 +17,15 @@ public class TestUserModel {
 		// testFindByPk();
 		// testFindByLogin();
 		// testAuthenticate();
-		// testSearch();
+		testSearch();
 	}
 
 	public static void testAdd() throws Exception {
 
 		UserBean bean = new UserBean();
-		bean.setFirstName("Anshul");
-		bean.setLastName("Prajapati");
-		bean.setLogin("anshul@gmail.com");
+		bean.setFirstName("Prabhakar");
+		bean.setLastName("Mandloi");
+		bean.setLogin("prabhakar@gmail.com");
 		bean.setPassword("1234");
 		bean.setDob(new Date());
 		bean.setMobileNo("9998890811");
@@ -140,7 +140,7 @@ public class TestUserModel {
 
 		UserModel model = new UserModel();
 
-		List list = model.search(bean, 1, 10);
+		List list = model.search(bean, 1, 0);
 
 		Iterator it = list.iterator();
 
