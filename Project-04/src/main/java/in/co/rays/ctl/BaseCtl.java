@@ -39,6 +39,7 @@ public abstract class BaseCtl extends HttpServlet {
 	}
 
 	protected void preload(HttpServletRequest request) {
+		System.out.println("in BaseCtl preload");
 	}
 
 	protected BaseBean populateBean(HttpServletRequest request) {
@@ -96,6 +97,8 @@ public abstract class BaseCtl extends HttpServlet {
 		if (DataValidator.isNotNull(op) && !OP_CANCEL.equalsIgnoreCase(op) && !OP_VIEW.equalsIgnoreCase(op)
 				&& !OP_DELETE.equalsIgnoreCase(op) && !OP_RESET.equalsIgnoreCase(op)) {
 
+			System.out.println("in BaseCtl validate");
+
 			if (!validate(request)) {
 				System.out.println("validate return");
 				BaseBean bean = (BaseBean) populateBean(request);
@@ -104,8 +107,6 @@ public abstract class BaseCtl extends HttpServlet {
 				return;
 			}
 		}
-
-		System.out.println("base ctl service" + request.getMethod());
 		super.service(request, response);
 	}
 
