@@ -12,6 +12,8 @@ public interface ORSView {
 	public String LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";
 	public String ROLE_VIEW = PAGE_FOLDER + "/RoleView.jsp";
 	public String ROLE_LIST_VIEW = PAGE_FOLDER + "/RoleListView.jsp";
+	public String FACULTY_VIEW = PAGE_FOLDER + "/FacultyView.jsp";
+	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
 	
 
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
@@ -22,4 +24,6 @@ public interface ORSView {
 	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";
 	public String ROLE_CTL = APP_CONTEXT + "/RoleCtl";
 	public String ROLE_LIST_CTL = APP_CONTEXT + "/RoleListCtl";
+	public String FACULTY_CTL = APP_CONTEXT + "/FacultyCtl";
+	public String FACULTY_LIST_CTL = APP_CONTEXT + "/FacultyListCtl";
 }
