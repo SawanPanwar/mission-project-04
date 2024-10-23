@@ -31,6 +31,7 @@
 <script src="/Project-04/js/datepicker.js"></script>
 </head>
 <body>
+	<%@ include file="Header.jsp"%>
 	<form action="<%=ORSView.FACULTY_CTL%>" method="post">
 
 		<jsp:useBean id="bean" class="in.co.rays.bean.FacultyBean"

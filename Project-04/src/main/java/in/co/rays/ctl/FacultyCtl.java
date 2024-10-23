@@ -33,6 +33,7 @@ public class FacultyCtl extends BaseCtl {
 			request.setAttribute("firstName", "Invalid First Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("lastName"))) {
 			request.setAttribute("lastName", PropertyReader.getValue("error.require", "Last Name"));
 			pass = false;
@@ -40,6 +41,7 @@ public class FacultyCtl extends BaseCtl {
 			request.setAttribute("lastName", "Invalid Last Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("email"))) {
 			request.setAttribute("email", PropertyReader.getValue("error.require", "Email Id"));
 			pass = false;
@@ -47,6 +49,7 @@ public class FacultyCtl extends BaseCtl {
 			request.setAttribute("email", PropertyReader.getValue("error.email", "Email"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("dob"))) {
 			request.setAttribute("dob", PropertyReader.getValue("error.require", "Date of Birth"));
 			pass = false;
@@ -54,10 +57,12 @@ public class FacultyCtl extends BaseCtl {
 			request.setAttribute("dob", PropertyReader.getValue("error.date", "Date of Birth"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("gender"))) {
 			request.setAttribute("gender", PropertyReader.getValue("error.require", "Gender"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("mobileNo"))) {
 			request.setAttribute("mobileNo", PropertyReader.getValue("error.require", "Mobile No"));
 			pass = false;
@@ -68,14 +73,17 @@ public class FacultyCtl extends BaseCtl {
 			request.setAttribute("mobileNo", "Invalid Mobile No");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("collegeId"))) {
 			request.setAttribute("collegeId", PropertyReader.getValue("error.require", "College Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("courseId"))) {
 			request.setAttribute("courseId", PropertyReader.getValue("error.require", "Course Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("subjectId"))) {
 			request.setAttribute("subjectId", PropertyReader.getValue("error.require", "Subject Name"));
 			pass = false;
