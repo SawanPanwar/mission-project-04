@@ -136,12 +136,15 @@ public class UserModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
+			
+			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_user where id = ?");
 
 			pstmt.setLong(1, id);
 
 			int i = pstmt.executeUpdate();
+			
 			conn.commit();
 
 			System.out.println("data deleted => " + i);
