@@ -287,6 +287,9 @@ public class UserModel {
 			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
 				sql.append(" and dob like '" + new java.sql.Date(bean.getDob().getTime()) + "%'");
 			}
+			if (bean.getRoleId() > 0) {
+				sql.append(" and role_id = " + bean.getRoleId());
+			}
 		}
 
 		if (pageSize > 0) {
