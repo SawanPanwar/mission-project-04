@@ -12,10 +12,10 @@ public class TestRoleModel {
 
 	public static void main(String[] args) throws Exception {
 		// testAdd();
-		// testUpdate();
+		testUpdate();
 		// testDelete();
 		// testFindByPk();
-		testFindByName();
+		// testFindByName();
 		// testSearch();
 	}
 
@@ -40,7 +40,7 @@ public class TestRoleModel {
 		RoleBean bean = new RoleBean();
 		bean.setId(2);
 		bean.setName("student");
-		bean.setDescription("student");
+		bean.setDescription("xyz");
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));

@@ -26,6 +26,12 @@ public class RoleModel {
 
 	public void add(RoleBean bean) throws Exception {
 
+		RoleBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new Exception("role name already exist");
+		}
+
 		int pk = nextPk();
 
 		Connection conn = JDBCDataSource.getConnection();
@@ -49,6 +55,12 @@ public class RoleModel {
 	}
 
 	public void update(RoleBean bean) throws Exception {
+
+		RoleBean existBean = findByName(bean.getName());
+
+		if (existBean != null && bean.getId() != existBean.getId() ) {
+			throw new Exception("role name already exist");
+		}
 
 		Connection conn = JDBCDataSource.getConnection();
 
