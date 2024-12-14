@@ -1,0 +1,13 @@
+**User List View Dynamic Preload (Role) Flow:**
+
+1. `UserListCtl` pr `BaseCtl` ki `preload` method ko override kiya.
+
+2. `RoleModel` ka object banaya.
+
+3. `RoleModel` ki `list` method ko call kiya, return list mili, jise `List` type ke variable `roleList` me hold kiya.
+
+4. `req.setAttribute("roleList", roleList)` kiya taaki list ko request object me set kiya ja sake.
+
+5. `UserListView` me `req.getAttribute("roleList")` kiya, aur list ko `List` type ke variable `roleList` me hold kiya.
+
+6. Expression tag me `HtmlUtility` ki `getList` method ko use kiya, jisme `name`, `selectedValue`, aur list ka object `roleList` pass kiya.

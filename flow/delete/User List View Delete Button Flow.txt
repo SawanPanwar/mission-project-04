@@ -1,0 +1,31 @@
+**User List View Delete Button Flow:**
+
+1. User List View me ek input field banai, jisme `input` type `checkbox`, `name="ids"`, aur `value="<%=bean.getId()%>"` diya.
+
+2. Ek `input` type `submit` banaya, jisme `name="operation"` aur `value="UserListCtl.OP_DELETE"` set kiya.
+
+3. Request `UserListCtl` ki `doPost` method pr gai.
+
+4. Request parameters se ids ko get kiya using `request.getParameterValues("ids")` aur unhe `String[] ids` me hold kiya.
+
+5. `operation` ko get kiya, aur `operation` mila `delete`.
+
+6. Agar `operation == delete` ho, to `pageNo` ko 1 set kiya.
+
+7. Condition check ki: `ids != null && ids.length > 0` ho, to ids ko foreach loop se iterate karwaya.
+
+8. `UserBean` ka ek object `deleteBean` banaya, aur har id ko `deleteBean` me set kiya.
+
+9. User Model ki `delete` method ko call kiya aur usme `deleteBean` ko pass kiya.
+
+10. Model ki `search` method ko call kiya, jisme `UserBean`, `pageNo`, aur `pageSize` ko pass kiya.
+
+11. `search` method ne list return ki, jise ek list object me hold kiya.
+
+12. Servlet utility ki `setList` method ka use karke list ko request object me set kiya.
+
+13. Servlet utility ki `setPageNo` method ka use karke `pageNo` ko request object me set kiya.
+
+14. Servlet utility ki `setPageSize` method ka use karke `pageSize` ko request object me set kiya.
+
+15. Finally, Servlet utility ki `forward` method ka use karke request aur response ko `UserListView` pr forward kiya.

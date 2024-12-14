@@ -1,0 +1,25 @@
+### User List Link to User List View Flow:
+
+1. **Link par click kiya**, request `UserListCtl` ke `doGet` method par gayi.
+
+2. **User Model ka object banaya**.
+
+3. **Model ki search method call ki**, jisme `UserBean`, `int pageNo`, aur `int pageSize` pass kiya.
+
+4. **Search method ne list return ki**, aur usko list object mein hold kiya.
+
+5. **Servlet utility ki `setList` method** ka use karke list ko request object mein set kiya.
+
+6. **Servlet utility ki `setPageNo` method** se `pageNo` ko request object mein set kiya.
+
+7. **Servlet utility ki `setPageSize` method** se `pageSize` ko request object mein set kiya.
+
+8. **Servlet utility ki `forward` method** ka use karke, request aur response ko `User List View` par forward kiya.
+
+---
+
+### `User List View` Page par:
+
+09. **Servlet utility ki `getList`, `getPageNo`, aur `getPageSize` methods** ka use karke list, page number aur page size ko get kiya aur unko corresponding variables mein hold kiya.
+
+10. List ko **`while` loop se iterate** karwaya, aur **expression tag (`<%= %>`)** ka use karke print kiya.

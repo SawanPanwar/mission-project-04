@@ -1,0 +1,21 @@
+# User List View Edit Flow:
+
+01. User List View par edit ki link banai.
+
+02. Link mein <a href="UserCtl?id=<%=bean.getId()%>">edit</a> add kiya.
+
+03. Request UserCtl par gayi, aur UserCtl ki doGet method call hui.
+
+04. UserCtl par request parameter se id get ki.
+
+05. operation get kiya, operation mila null.
+
+06. Agar id > 0 && operation != null ho to UserModel ki findByPk method ko call kiya, jisne UserBean return kiya, aur use UserBean ke object bean mein hold kiya.
+
+07. ServletUtility.setBean(bean, request); ko call kiya taaki  ko request mein set kiya ja sake.
+bean
+08. ServletUtility.forward(getView(), request, response); se UserView.jsp par forward kiya.
+
+09. UserView par <jsp:useBean id="bean" class="in.co.rays.bean.UserBean" scope="request"></jsp:useBean> se bean ko get kiya.
+
+10. input fields me value attribute me <%=bean.getFirstName()%>,<%=bean.getLastName()%>.... kiya.
