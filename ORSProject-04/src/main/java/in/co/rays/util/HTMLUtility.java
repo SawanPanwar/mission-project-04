@@ -1,0 +1,47 @@
+package in.co.rays.util;
+
+import java.util.HashMap;
+import java.util.Set;
+
+public class HTMLUtility {
+
+	public static String getList(String name, String selectedVal, HashMap<String, String> map) {
+
+		StringBuffer sb = new StringBuffer(
+				"<select style=\"width: 170px;text-align-last: center;\"; class='form-control' name='" + name + "'>");
+
+		sb.append("\n<option selected value=''>-------------Select-------------</option>");
+
+		Set<String> keys = map.keySet();
+		String val = null;
+
+		for (String key : keys) {
+			val = map.get(key);
+			if (key.trim().equals(selectedVal)) {
+				sb.append("\n<option selected value='" + key + "'>" + val + "</option>");
+			} else {
+				sb.append("\n<option value='" + key + "'>" + val + "</option>");
+			}
+		}
+		sb.append("\n</select>");
+		return sb.toString();
+	}
+
+	public static void testGetListByMap() {
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("male", "male");
+		map.put("female", "female");
+
+		String selectedValue = null;
+		selectedValue = "male";
+		String htmlSelectFromMap = HTMLUtility.getList("gender", selectedValue, map);
+
+		System.out.println(htmlSelectFromMap);
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		testGetListByMap();
+	}
+}

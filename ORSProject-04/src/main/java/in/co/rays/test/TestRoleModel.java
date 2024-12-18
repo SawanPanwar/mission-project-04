@@ -6,24 +6,27 @@ import java.util.Iterator;
 import java.util.List;
 
 import in.co.rays.bean.RoleBean;
+import in.co.rays.exception.ApplicationException;
+import in.co.rays.exception.DatabaseException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.model.RoleModel;
 
 public class TestRoleModel {
 
 	public static void main(String[] args) throws Exception {
-		// testAdd();
-		testUpdate();
+		testAdd();
+		// testUpdate();
 		// testDelete();
 		// testFindByPk();
 		// testFindByName();
 		// testSearch();
 	}
 
-	public static void testAdd() throws Exception {
+	public static void testAdd() {
 
 		RoleBean bean = new RoleBean();
-		bean.setName("kiosk");
-		bean.setDescription("kiosk");
+		bean.setName("aaa");
+		bean.setDescription("aaa");
 		bean.setCreatedBy("admin@gmail.com");
 		bean.setModifiedBy("admin@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -31,8 +34,15 @@ public class TestRoleModel {
 
 		RoleModel model = new RoleModel();
 
-		model.add(bean);
-
+		try {
+			model.add(bean);
+		} catch (DuplicateRecordException e) {
+			System.out.println(e);
+		} catch (DatabaseException e) {
+			System.out.println(e);
+		} catch (ApplicationException e) {
+			System.out.println(e);
+		}
 	}
 
 	public static void testUpdate() throws Exception {
