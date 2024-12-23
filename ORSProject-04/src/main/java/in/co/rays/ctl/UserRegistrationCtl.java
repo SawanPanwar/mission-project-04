@@ -12,6 +12,8 @@ import in.co.rays.bean.RoleBean;
 import in.co.rays.bean.UserBean;
 import in.co.rays.model.UserModel;
 import in.co.rays.util.DataUtility;
+import in.co.rays.util.DataValidator;
+import in.co.rays.util.PropertyReader;
 import in.co.rays.util.ServletUtility;
 
 @WebServlet("/UserRegistrationCtl")
@@ -22,7 +24,91 @@ public class UserRegistrationCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
-		return false;
+		boolean isValid = true;
+
+		// Validate First Name
+		String firstName = request.getParameter("firstName");
+		if (DataValidator.isNull(firstName)) {
+			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
+			isValid = false;
+		} else if (!DataValidator.isName(firstName)) {
+			request.setAttribute("firstName", "Invalid First Name");
+			isValid = false;
+		}
+
+		// Validate Last Name
+		String lastName = request.getParameter("lastName");
+		if (DataValidator.isNull(lastName)) {
+			request.setAttribute("lastName", PropertyReader.getValue("error.require", "Last Name"));
+			isValid = false;
+		} else if (!DataValidator.isName(lastName)) {
+			request.setAttribute("lastName", "Invalid Last Name");
+			isValid = false;
+		}
+
+		// Validate Login
+		String login = request.getParameter("login");
+		if (DataValidator.isNull(login)) {
+			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
+			isValid = false;
+		} else if (!DataValidator.isEmail(login)) {
+			request.setAttribute("login", PropertyReader.getValue("error.email", "Login"));
+			isValid = false;
+		}
+
+		// Validate Password
+		String password = request.getParameter("password");
+		if (DataValidator.isNull(password)) {
+			request.setAttribute("password", PropertyReader.getValue("error.require", "Password"));
+			isValid = false;
+		} else if (!DataValidator.isPasswordLength(password)) {
+			request.setAttribute("password", "Password should be 8 to 12 characters");
+			isValid = false;
+		} else if (!DataValidator.isPassword(password)) {
+			request.setAttribute("password", "Must contain uppercase, lowercase, digit & special character");
+			isValid = false;
+		}
+
+		// Validate Confirm Password
+		String confirmPassword = request.getParameter("confirmPassword");
+		if (DataValidator.isNull(confirmPassword)) {
+			request.setAttribute("confirmPassword", PropertyReader.getValue("error.require", "Confirm Password"));
+			isValid = false;
+		} else if (!password.equals(confirmPassword)) {
+			request.setAttribute("confirmPassword", "Password & Confirm Password must be same");
+			isValid = false;
+		}
+
+		// Validate Gender
+		if (DataValidator.isNull(request.getParameter("gender"))) {
+			request.setAttribute("gender", PropertyReader.getValue("error.require", "Gender"));
+			isValid = false;
+		}
+
+		// Validate Date of Birth
+		String dob = request.getParameter("dob");
+		if (DataValidator.isNull(dob)) {
+			request.setAttribute("dob", PropertyReader.getValue("error.require", "Date of Birth"));
+			isValid = false;
+		} else if (!DataValidator.isDate(dob)) {
+			request.setAttribute("dob", PropertyReader.getValue("error.date", "Date of Birth"));
+			isValid = false;
+		}
+
+		// Validate Mobile No
+		String mobileNo = request.getParameter("mobileNo");
+		if (DataValidator.isNull(mobileNo)) {
+			request.setAttribute("mobileNo", PropertyReader.getValue("error.require", "Mobile No"));
+			isValid = false;
+		} else if (!DataValidator.isPhoneLength(mobileNo)) {
+			request.setAttribute("mobileNo", "Mobile No must have 10 digits");
+			isValid = false;
+		} else if (!DataValidator.isPhoneNo(mobileNo)) {
+			request.setAttribute("mobileNo", "Invalid Mobile No");
+			isValid = false;
+		}
+
+		return isValid;
 	}
 
 	@Override

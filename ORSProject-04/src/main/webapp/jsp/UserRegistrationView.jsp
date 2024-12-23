@@ -1,3 +1,5 @@
+<%@page import="in.co.rays.util.HTMLUtility"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.bean.UserBean"%>
 <%@page import="in.co.rays.ctl.ORSView"%>
 <%@page import="in.co.rays.ctl.UserRegistrationCtl"%>
@@ -12,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="Header.jsp"%>
 	<form action="<%=ORSView.USER_REGISTRATION_CTL%>" method="post">
 		<jsp:useBean id="bean" class="in.co.rays.bean.UserBean"
 			scope="request" />
@@ -36,41 +39,54 @@
 					<th align="left">First Name<span style="color: red">*</span></th>
 					<td><input type="text" name="firstName"
 						placeholder="Enter First Name" /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("firstName", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Last Name<span style="color: red">*</span></th>
 					<td><input type="text" name="lastName"
 						placeholder="Enter Last Name" /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("lastName", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Login Id<span style="color: red">*</span></th>
 					<td><input type="text" name="login"
 						placeholder="Enter Email ID" /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("login", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Password<span style="color: red">*</span></th>
 					<td><input type="password" name="password"
 						placeholder="Enter Password" /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("password", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Confirm Pass<span style="color: red">*</span></th>
 					<td><input type="password" name="confirmPassword"
 						placeholder="Confirm Password" /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("confirmPassword", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">DOB<span style="color: red">*</span></th>
 					<td><input type="date" name="dob"
-						placeholder="Select Date of Birth" /></td>
+						placeholder="Select Date of Birth" style="width: 97%"/></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Gender<span style="color: red">*</span></th>
-					<td><input type="text" name="gender"
-						placeholder="Enter Gender" /></td>
+					<td>
+						<%
+							HashMap<String, String> genderMap = new HashMap<>();
+							genderMap.put("male", "Male");
+							genderMap.put("female", "Female");
+						%> <%=HTMLUtility.getList("gender", bean.getGender(), genderMap)%>
+					</td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("gender", request)%></font></td>
 				</tr>
 				<tr>
 					<th align="left">Mobile No<span style="color: red">*</span></th>
 					<td><input type="text" name="mobileNo"
 						placeholder="Enter Mobile No." /></td>
+					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("mobileNo", request)%></font></td>
 				</tr>
 				<tr>
 					<td></td>
