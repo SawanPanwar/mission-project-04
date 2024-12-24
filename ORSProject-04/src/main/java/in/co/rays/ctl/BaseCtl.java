@@ -78,15 +78,16 @@ public abstract class BaseCtl extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		System.out.println("service");
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		// Perform validation for all operations except for these
 		if (DataValidator.isNotNull(op) && !OP_CANCEL.equalsIgnoreCase(op) && !OP_VIEW.equalsIgnoreCase(op)
 				&& !OP_DELETE.equalsIgnoreCase(op) && !OP_RESET.equalsIgnoreCase(op)) {
 
 			if (!validate(request)) {
+				BaseBean bean = populateBean(request);
+				ServletUtility.setBean(bean, request);
 				ServletUtility.forward(getView(), request, response);
 				return;
 			}
