@@ -43,8 +43,9 @@
 			if (userLoggedIn) {
 		%>
 		<tr>
-			<td colspan="2"><a href="#">Add User</a> | <a href="#">User
-					List</a> | <a href="#">Add Role</a> | <a href="#">Role List</a>
+			<td colspan="2"><a href="<%=ORSView.USER_CTL%>">Add User</a> | <a
+				href="#">User List</a> | <a href="#">Add Role</a> | <a href="#">Role
+					List</a>
 		</tr>
 		<%
 			}

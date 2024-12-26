@@ -16,7 +16,6 @@ import in.co.rays.util.JDBCDataSource;
 public class RoleModel {
 
 	public Integer nextPk() throws ApplicationException {
-
 		int pk = 0;
 		Connection conn = null;
 		try {

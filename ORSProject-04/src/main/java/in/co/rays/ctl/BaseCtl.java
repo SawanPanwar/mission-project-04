@@ -80,6 +80,9 @@ public abstract class BaseCtl extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("service");
+
+		preload(request);
+
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		if (DataValidator.isNotNull(op) && !OP_CANCEL.equalsIgnoreCase(op) && !OP_VIEW.equalsIgnoreCase(op)
