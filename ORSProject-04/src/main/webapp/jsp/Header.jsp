@@ -44,8 +44,8 @@
 		%>
 		<tr>
 			<td colspan="2"><a href="<%=ORSView.USER_CTL%>">Add User</a> | <a
-				href="#">User List</a> | <a href="#">Add Role</a> | <a href="#">Role
-					List</a>
+				href="<%=ORSView.USER_LIST_CTL%>">User List</a> | <a href="#">Add
+					Role</a> | <a href="#">Role List</a>
 		</tr>
 		<%
 			}
