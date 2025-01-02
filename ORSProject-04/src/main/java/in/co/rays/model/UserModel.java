@@ -97,6 +97,7 @@ public class UserModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn.prepareStatement(
 					"update st_user set first_name = ?, last_name = ?, login = ?, password = ?, dob = ?, mobile_no = ?, role_id = ?, gender = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ?  where id = ?");

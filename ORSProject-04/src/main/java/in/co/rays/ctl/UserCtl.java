@@ -134,6 +134,21 @@ public class UserCtl extends BaseCtl {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String op = DataUtility.getString(request.getParameter("operation"));
+		Long id = DataUtility.getLong(request.getParameter("id"));
+
+		if (id > 0) {
+
+			UserModel model = new UserModel();
+
+			try {
+				UserBean bean = model.findByPk(id);
+				ServletUtility.setBean(bean, request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
 		ServletUtility.forward(getView(), request, response);
 	}
 
@@ -145,9 +160,10 @@ public class UserCtl extends BaseCtl {
 
 		UserModel model = new UserModel();
 
-		UserBean bean = (UserBean) populateBean(request);
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
 			try {
 				model.add(bean);
 				ServletUtility.setSuccessMessage("User Added Successfully..!!", request);
@@ -159,11 +175,35 @@ public class UserCtl extends BaseCtl {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
+			System.out.println("update 1");
+			try {
+				if (id > 0) {
+					System.out.println("update 2");
+					model.update(bean);
+				}
+				System.out.println("update 3");
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				System.out.println("update 4");
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				System.out.println("update 5");
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Login id already exists", request);
+				ServletUtility.forward(getView(), request, response);
+			}
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+			return;
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);
 			return;
 		}
-
 	}
 
 	@Override
