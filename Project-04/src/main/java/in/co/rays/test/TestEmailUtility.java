@@ -14,13 +14,13 @@ public class TestEmailUtility {
 		try {
 
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", "uavnish2907@gmail.com");
+			map.put("login", "sushobhitp11@gmail.com");
 			map.put("password", "pass123");
 
 			String message = EmailBuilder.getUserRegistrationMessage(map);
 
 			EmailMessage emailMessage = new EmailMessage();
-			emailMessage.setTo("uavnish2907@gmail.com");
+			emailMessage.setTo("sushobhitp11@gmail.com");
 			emailMessage.setSubject("Registration is successful for ORS Project");
 			emailMessage.setMessage(message);
 			emailMessage.setMessageType(EmailMessage.HTML_MSG);

@@ -160,9 +160,10 @@ public class UserCtl extends BaseCtl {
 
 		UserModel model = new UserModel();
 
-		UserBean bean = (UserBean) populateBean(request);
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
 			try {
 				model.add(bean);
 				ServletUtility.setSuccessMessage("User Added Successfully..!!", request);
@@ -174,6 +175,24 @@ public class UserCtl extends BaseCtl {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+			} catch (ApplicationException e) {
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Login id already exists", request);
+			}
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+			return;
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);
 			return;
