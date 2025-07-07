@@ -1,0 +1,58 @@
+User Model:
+
+public Integer nextPK() throws DatabaseException;
+
+public long add(UserBean bean) throws ApplicationException, DuplicateRecordException;
+
+public void delete(UserBean bean) throws ApplicationException;
+
+public UserBean findByLogin(String login) throws ApplicationException;
+
+public UserBean findByPK(long pk) throws ApplicationException;
+
+public void update(UserBean bean) throws ApplicationException, DuplicateRecordException;
+
+public List<UserBean> search(UserBean bean, int pageNo, int pageSize) throws ApplicationException;
+
+public List<UserBean> list() throws ApplicationException;
+
+public UserBean authenticate(String login, String password) throws ApplicationException;
+
+
+College Model:
+
+public Integer nextPK() throws DatabaseException;
+
+public long add(CollegeBean bean) throws ApplicationException, DuplicateRecordException;
+
+public void delete(CollegeBean bean) throws ApplicationException;
+
+public CollegeBean findByName(String name) throws ApplicationException;
+
+public CollegeBean findByPK(long pk) throws ApplicationException;
+
+public void update(CollegeBean bean) throws ApplicationException, DuplicateRecordException;
+
+public List<CollegeBean> search(CollegeBean bean, int pageNo, int pageSize) throws ApplicationException;
+
+public List<CollegeBean> list() throws ApplicationException;
+
+
+Student Model:
+
+public Integer nextPK() throws DatabaseException;
+
+public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException;
+
+public void delete(StudentBean bean) throws ApplicationException;
+
+public StudentBean findByEmailId(String Email) throws ApplicationException;
+
+public StudentBean findByPK(long pk) throws ApplicationException;
+
+public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException;
+
+public List<StudentBean> search(StudentBean bean, int pageNo, int pageSize) throws ApplicationException;
+
+public List<StudentBean> list() throws ApplicationException;
+
