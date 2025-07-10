@@ -1,0 +1,11 @@
+01. What is MVC (Model-View-Controller)?
+02. What are Design Patterns?
+03. What is the difference between Statement and Prepared Statement?
+04. What is a Callable Statement?
+05. What is Validations & Types?
+06. How to create a custom Checked and Unchecked Exception class in Java?
+07. What is the difference between Checked and Unchecked Exceptions?
+08. What are Class, Variable, Object, Constructor, Method, final, finally, and finalize in Java?
+09. What is OOP (Object-Oriented Programming)?
+10. What are the key concepts of OOP?
+11. What is the difference between Overloading and Overriding?
