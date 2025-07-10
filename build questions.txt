@@ -9,3 +9,5 @@
 09. What is OOP (Object-Oriented Programming)?
 10. What are the key concepts of OOP?
 11. What is the difference between Overloading and Overriding?
+12. What is JDBC?
+13. Difference between GET & POST?
