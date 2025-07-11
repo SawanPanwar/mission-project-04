@@ -1,0 +1,89 @@
+01) What is ORS interface?
+
+02) What is Maven?
+
+03) What is pom.xml?
+
+04) What are dependencies in pom.xml?
+
+08) What is web.xml?
+
+13) Which tag is used for displaying image on page?
+
+15) What are the utility classes you have in your project?
+
+16) What is the purpose of utility classes?
+
+20) What is ORS project?
+
+27) What is Tomcat directory structure?
+
+28) What is JBoss directory structure?
+
+29) JSP tags?
+
+30) How many types of session tracking?
+
+31) How many types to create servlet?
+
+32) What is servlet lifecycle?
+
+33) Difference between JBoss and Tomcat?
+
+34) Difference between web server and application server?
+
+35) Difference between checked and unchecked exception?
+
+36) Difference between Comparable and Comparator?
+
+38) Difference between forward and sendRedirect?
+
+39) Difference between StringBuffer and StringBuilder?
+
+40) Difference between static and dynamic polymorphism?
+
+41) Difference between URL and URI?
+
+42) What is BaseBean?
+
+43) What is BaseCtl and all methods?
+
+48) What is normalization?
+
+49) How many types of scope?
+
+50) How many interfaces used in project?
+
+51) How many abstract classes used in project?
+
+52) How to destroy session?
+
+54) What are ACID properties?
+
+60) How many layers are present in MVC?
+
+61) What are the implicit objects in JSP?
+
+70) What is JSP page life cycle?
+
+79) Difference between session(true) and session(false)?
+
+83) What happens if there is no welcome file in web.xml?
+
+84) How to set session timeout in web.xml?
+
+85) What is default timeout for session?
+
+88) Difference between application server and web server?
+
+89) List web servers and application servers?
+
+108) Difference between java.util.Date and java.sql.Date?
+
+112) How can you say it's a single instance?
+
+113) How many methods in JDBCDataSource?
+
+114) What is DCP?
+
+115) What is the use of DCP?
