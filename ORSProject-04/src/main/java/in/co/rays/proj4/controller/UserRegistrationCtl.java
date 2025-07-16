@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
+import in.co.rays.proj4.model.UserModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
@@ -95,6 +99,8 @@ public class UserRegistrationCtl extends BaseCtl {
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 
+		bean.setRoleId(RoleBean.STUDENT);
+
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
@@ -111,6 +117,8 @@ public class UserRegistrationCtl extends BaseCtl {
 
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
 
+		populateDTO(bean, request);
+
 		return bean;
 	}
 
@@ -121,7 +129,31 @@ public class UserRegistrationCtl extends BaseCtl {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ServletUtility.forward(getView(), request, response);
+
+		String op = DataUtility.getString(request.getParameter("operation"));
+
+		UserModel model = new UserModel();
+
+		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
+			try {
+				model.add(bean);
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Registration successful!", request);
+				ServletUtility.forward(getView(), request, response);
+				return;
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Login id already exists", request);
+				ServletUtility.forward(getView(), request, response);
+			}
+		} else if (OP_RESET.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
+			return;
+		}
 	}
 
 	@Override
