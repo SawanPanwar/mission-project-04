@@ -164,9 +164,8 @@ public class UserCtl extends BaseCtl {
 
 			try {
 				long pk = model.add(bean);
-				bean.setId(pk);
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setSuccessMessage("Data is successfully saved", request);
+				ServletUtility.setSuccessMessage("User added successfully", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
