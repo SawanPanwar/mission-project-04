@@ -39,10 +39,6 @@ public class UserCtl extends BaseCtl {
 
 		boolean pass = true;
 
-		String login = request.getParameter("login");
-		String dob = request.getParameter("dob");
-		String password = request.getParameter("password");
-
 		if (DataValidator.isNull(request.getParameter("firstName"))) {
 			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
 			pass = false;
@@ -59,21 +55,21 @@ public class UserCtl extends BaseCtl {
 			pass = false;
 		}
 
-		if (DataValidator.isNull(login)) {
+		if (DataValidator.isNull(request.getParameter("login"))) {
 			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
 			pass = false;
-		} else if (!DataValidator.isEmail(login)) {
+		} else if (!DataValidator.isEmail(request.getParameter("login"))) {
 			request.setAttribute("login", PropertyReader.getValue("error.email", "Login "));
 			pass = false;
 		}
 
-		if (DataValidator.isNull(password)) {
+		if (DataValidator.isNull(request.getParameter("password"))) {
 			request.setAttribute("password", PropertyReader.getValue("error.require", "Password"));
 			pass = false;
-		} else if (!DataValidator.isPasswordLength(password)) {
+		} else if (!DataValidator.isPasswordLength(request.getParameter("password"))) {
 			request.setAttribute("password", "Password should be 8 to 12 characters");
 			pass = false;
-		} else if (!DataValidator.isPassword(password)) {
+		} else if (!DataValidator.isPassword(request.getParameter("password"))) {
 			request.setAttribute("password", "Must contain uppercase, lowercase, digit & special character");
 			pass = false;
 		}
@@ -87,17 +83,20 @@ public class UserCtl extends BaseCtl {
 			request.setAttribute("gender", PropertyReader.getValue("error.require", "Gender"));
 			pass = false;
 		}
-		if (DataValidator.isNull(dob)) {
+
+		if (DataValidator.isNull(request.getParameter("dob"))) {
 			request.setAttribute("dob", PropertyReader.getValue("error.require", "Date of Birth"));
 			pass = false;
-		} else if (!DataValidator.isDate(dob)) {
+		} else if (!DataValidator.isDate(request.getParameter("dob"))) {
 			request.setAttribute("dob", PropertyReader.getValue("error.date", "Date of Birth"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("roleId"))) {
 			request.setAttribute("roleId", PropertyReader.getValue("error.require", "Role"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("mobileNo"))) {
 			request.setAttribute("mobileNo", PropertyReader.getValue("error.require", "MobileNo"));
 			pass = false;
@@ -108,6 +107,7 @@ public class UserCtl extends BaseCtl {
 			request.setAttribute("mobileNo", "Invalid Mobile No");
 			pass = false;
 		}
+
 		if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))
 				&& !"".equals(request.getParameter("confirmPassword"))) {
 			request.setAttribute("confirmPassword", "Password and Confirm Password must be Same!");
@@ -123,23 +123,14 @@ public class UserCtl extends BaseCtl {
 		UserBean bean = new UserBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
-
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
-
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
-
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));
-
 		bean.setPassword(DataUtility.getString(request.getParameter("password")));
-
 		bean.setConfirmPassword(DataUtility.getString(request.getParameter("confirmPassword")));
-
 		bean.setGender(DataUtility.getString(request.getParameter("gender")));
-
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
-
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
 
 		populateDTO(bean, request);
@@ -151,15 +142,11 @@ public class UserCtl extends BaseCtl {
 			throws ServletException, IOException {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
-
 		UserModel model = new UserModel();
-
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (id > 0 || op != null) {
-
 			UserBean bean;
-
 			try {
 				bean = model.findByPK(id);
 				ServletUtility.setBean(bean, request);
@@ -176,12 +163,10 @@ public class UserCtl extends BaseCtl {
 			throws ServletException, IOException {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
-
 		UserModel model = new UserModel();
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
-
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
@@ -195,7 +180,6 @@ public class UserCtl extends BaseCtl {
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
-
 			try {
 				if (bean.getId() > 0) {
 					model.update(bean);
@@ -216,6 +200,7 @@ public class UserCtl extends BaseCtl {
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);
 			return;
 		}
+
 		ServletUtility.forward(getView(), request, response);
 	}
 

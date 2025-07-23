@@ -24,6 +24,10 @@
 	<b>|</b>
 	<a href="UserListCtl"><b>User List</b></a>
 	<b>|</b>
+	<a href="RoleCtl"><b>Add Role</b></a>
+	<b>|</b>
+	<a href="RoleListCtl"><b>Role List</b></a>
+	<b>|</b>
 	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
 		} else {
