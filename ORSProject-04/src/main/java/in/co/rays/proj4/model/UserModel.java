@@ -20,7 +20,7 @@ import in.co.rays.proj4.util.JDBCDataSource;
 
 public class UserModel {
 
-	public Integer nextPK() throws DatabaseException {
+	public Integer nextPk() throws DatabaseException {
 
 		Connection conn = null;
 		int pk = 0;
@@ -54,7 +54,7 @@ public class UserModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			pk = nextPK();
+			pk = nextPk();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn
 					.prepareStatement("insert into st_user values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -149,7 +149,7 @@ public class UserModel {
 		return bean;
 	}
 
-	public UserBean findByPK(long pk) throws ApplicationException {
+	public UserBean findByPk(long pk) throws ApplicationException {
 
 		UserBean bean = null;
 		Connection conn = null;
@@ -346,7 +346,7 @@ public class UserModel {
 		boolean flag = false;
 		UserBean beanExist = null;
 
-		beanExist = findByPK(id);
+		beanExist = findByPk(id);
 		if (beanExist != null && beanExist.getPassword().equals(oldPassword)) {
 			beanExist.setPassword(newPassword);
 			try {
@@ -402,7 +402,7 @@ public class UserModel {
 	public boolean resetPassword(UserBean bean) throws ApplicationException {
 
 		String newPassword = String.valueOf(new Date().getTime()).substring(0, 4);
-		UserBean userData = findByPK(bean.getId());
+		UserBean userData = findByPk(bean.getId());
 		userData.setPassword(newPassword);
 
 		try {

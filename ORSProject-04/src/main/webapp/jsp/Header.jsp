@@ -28,6 +28,18 @@
 	<b>|</b>
 	<a href="RoleListCtl"><b>Role List</b></a>
 	<b>|</b>
+	<a href="CollegeCtl"><b>Add College</b></a>
+	<b>|</b>
+	<a href="CollegeListCtl"><b>College List</b></a>
+	<b>|</b>
+	<a href="StudentCtl"><b>Add Student</b></a>
+	<b>|</b>
+	<a href="StudentListCtl"><b>Student List</b></a>
+	<b>|</b>
+	<a href="MarksheetCtl"><b>Add Marksheet</b></a>
+	<b>|</b>
+	<a href="MarksheetListCtl"><b>Marksheet List</b></a>
+	<b>|</b>
 	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
 		} else {

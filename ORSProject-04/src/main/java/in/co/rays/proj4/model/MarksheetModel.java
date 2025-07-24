@@ -15,7 +15,7 @@ import in.co.rays.proj4.util.JDBCDataSource;
 
 public class MarksheetModel {
 
-	public Integer nextPK() throws DatabaseException {
+	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
 		try {
@@ -40,12 +40,13 @@ public class MarksheetModel {
 
 		Connection conn = null;
 
-		StudentModel sModel = new StudentModel();
-		StudentBean studentbean = sModel.findByPK(bean.getStudentId());
+		int pk = 0;
+
+		StudentModel studentModel = new StudentModel();
+		StudentBean studentbean = studentModel.findByPk(bean.getStudentId());
 		bean.setName(studentbean.getFirstName() + " " + studentbean.getLastName());
 
 		MarksheetBean duplicateMarksheet = findByRollNo(bean.getRollNo());
-		int pk = 0;
 
 		if (duplicateMarksheet != null) {
 			throw new DuplicateRecordException("Roll Number already exists");
@@ -53,8 +54,7 @@ public class MarksheetModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-
-			pk = nextPK();
+			pk = nextPk();
 			conn.setAutoCommit(false); // Begin transaction
 			PreparedStatement pstmt = conn
 					.prepareStatement("insert into st_marksheet values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -145,7 +145,7 @@ public class MarksheetModel {
 		return bean;
 	}
 
-	public MarksheetBean findByPK(long pk) throws ApplicationException {
+	public MarksheetBean findByPk(long pk) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where id = ?");
 		MarksheetBean bean = null;
@@ -182,14 +182,15 @@ public class MarksheetModel {
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
+
 		MarksheetBean beanExist = findByRollNo(bean.getRollNo());
 
 		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Roll No is already exist");
 		}
 
-		StudentModel sModel = new StudentModel();
-		StudentBean studentbean = sModel.findByPK(bean.getStudentId());
+		StudentModel studentModel = new StudentModel();
+		StudentBean studentbean = studentModel.findByPk(bean.getStudentId());
 		bean.setName(studentbean.getFirstName() + " " + studentbean.getLastName());
 
 		try {
@@ -292,7 +293,7 @@ public class MarksheetModel {
 
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			sql.append(" limit " + pageNo + "," + pageSize);
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
 
 		Connection conn = null;

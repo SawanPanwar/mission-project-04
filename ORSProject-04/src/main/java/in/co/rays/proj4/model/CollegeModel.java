@@ -206,6 +206,10 @@ public class CollegeModel {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
+	
+	public List<CollegeBean> list() throws ApplicationException {
+		return search(null, 0, 0);
+	}
 
 	public List<CollegeBean> search(CollegeBean bean, int pageNo, int pageSize) throws ApplicationException {
 
