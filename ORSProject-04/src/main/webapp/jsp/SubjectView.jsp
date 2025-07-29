@@ -1,29 +1,42 @@
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
-<%@page import="in.co.rays.proj4.controller.RoleCtl"%>
-<%@page import="in.co.rays.proj4.controller.BaseCtl"%>
+<%@page import="in.co.rays.proj4.controller.UserCtl"%>
+<%@page import="in.co.rays.proj4.bean.SubjectBean"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="in.co.rays.proj4.util.HTMLUtility"%>
+<%@page import="in.co.rays.proj4.controller.SubjectCtl"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
+
 <html>
 <head>
-    <title>Add Role</title>
+    <title>Add Subject</title>
     <link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
-    <form action="<%=ORSView.ROLE_CTL%>" method="post">
+    <form action="SubjectCtl" method="POST">
         <%@ include file="Header.jsp"%>
 
-        <jsp:useBean id="bean" class="in.co.rays.proj4.bean.RoleBean" scope="request"></jsp:useBean>
+        <jsp:useBean id="bean" class="in.co.rays.proj4.bean.SubjectBean" scope="request"></jsp:useBean>
+
+        <%
+            List<SubjectBean> courseList = (List<SubjectBean>) request.getAttribute("courseList");
+        %>
 
         <div align="center">
             <h1 align="center" style="margin-bottom: -15; color: navy">
                 <%
                     if (bean != null && bean.getId() > 0) {
-                %>Update<%
+                %>
+                    Update
+                <%
                     } else {
-                %>Add<%
+                %>
+                    Add
+                <%
                     }
                 %>
-                Role
+                Subject
             </h1>
 
             <div style="height: 15px; margin-bottom: 12px">
@@ -47,10 +60,9 @@
 
             <table>
                 <tr>
-                    <th align="left">Name<span style="color: red">*</span></th>
-                    <td align="center">
-                        <input type="text" name="name" placeholder="Enter Role Name"
-                            value="<%=DataUtility.getStringData(bean.getName())%>">
+                    <th align="left">Subject<span style="color: red">*</span></th>
+                    <td>
+                        <input type="text" name="name" placeholder="Enter Subject Name" value="<%=DataUtility.getStringData(bean.getName())%>">
                     </td>
                     <td style="position: fixed;">
                         <font color="red">
@@ -58,6 +70,19 @@
                         </font>
                     </td>
                 </tr>
+
+                <tr>
+                    <th align="left">Course<span style="color: red">*</span></th>
+                    <td>
+                        <%=HTMLUtility.getList("courseId", String.valueOf(bean.getCourseId()), courseList)%>
+                    </td>
+                    <td style="position: fixed;">
+                        <font color="red">
+                            <%=ServletUtility.getErrorMessage("courseId", request)%>
+                        </font>
+                    </td>
+                </tr>
+
                 <tr>
                     <th align="left">Description<span style="color: red">*</span></th>
                     <td align="center">
@@ -70,26 +95,23 @@
                         </font>
                     </td>
                 </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                </tr>
+
                 <tr>
                     <th></th>
                     <%
                         if (bean != null && bean.getId() > 0) {
                     %>
-                    <td align="left" colspan="2">
-                        <input type="submit" name="operation" value="<%=RoleCtl.OP_UPDATE%>">
-                        <input type="submit" name="operation" value="<%=RoleCtl.OP_CANCEL%>">
-                    </td>
+                        <td align="left" colspan="2">
+                            <input type="submit" name="operation" value="<%=SubjectCtl.OP_UPDATE%>">
+                            <input type="submit" name="operation" value="<%=SubjectCtl.OP_CANCEL%>">
+                        </td>
                     <%
                         } else {
                     %>
-                    <td align="left" colspan="2">
-                        <input type="submit" name="operation" value="<%=RoleCtl.OP_SAVE%>">
-                        <input type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>">
-                    </td>
+                        <td align="left" colspan="2">
+                            <input type="submit" name="operation" value="<%=SubjectCtl.OP_SAVE%>">
+                            <input type="submit" name="operation" value="<%=SubjectCtl.OP_RESET%>">
+                        </td>
                     <%
                         }
                     %>

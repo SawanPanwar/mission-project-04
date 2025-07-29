@@ -17,7 +17,7 @@ import in.co.rays.proj4.util.JDBCDataSource;
 
 public class FacultyModel {
 
-	public Integer nextPK() throws DatabaseException {
+	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
 		try {
@@ -28,6 +28,7 @@ public class FacultyModel {
 				pk = rs.getInt(1);
 			}
 			rs.close();
+			pstmt.close();
 		} catch (Exception e) {
 			throw new DatabaseException("Exception : Exception in getting PK");
 		} finally {
@@ -41,41 +42,41 @@ public class FacultyModel {
 		int pk = 0;
 
 		CollegeModel collegeModel = new CollegeModel();
-		CollegeBean collegeBean = collegeModel.findByPK(bean.getCollegeId());
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
 		bean.setCollegeName(collegeBean.getName());
 
 		CourseModel courseModel = new CourseModel();
-		CourseBean courseBean = courseModel.findByPK(bean.getCourseId());
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
 		bean.setCourseName(courseBean.getName());
 
 		SubjectModel subjectModel = new SubjectModel();
-		SubjectBean subjectBean = subjectModel.findByPK(bean.getSubjectId());
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
 		bean.setSubjectName(subjectBean.getName());
 
 		FacultyBean existbean = findByEmail(bean.getEmail());
-		
+
 		if (existbean != null) {
 			throw new DuplicateRecordException("Email Id already exists");
 		}
-		
+
 		try {
 			conn = JDBCDataSource.getConnection();
-			pk = nextPK();
+			pk = nextPk();
 			conn.setAutoCommit(false); // Begin transaction
 			PreparedStatement pstmt = conn.prepareStatement(
 					"insert into st_faculty values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			pstmt.setInt(1, pk);
-			pstmt.setLong(2, bean.getCollegeId());
-			pstmt.setLong(3, bean.getSubjectId());
-			pstmt.setLong(4, bean.getCourseId());
-			pstmt.setString(5, bean.getFirstName());
-			pstmt.setString(6, bean.getLastName());
-			pstmt.setString(7, bean.getGender());
-			pstmt.setDate(8, new java.sql.Date(bean.getDob().getTime()));
-			pstmt.setString(9, bean.getEmail());
-			pstmt.setString(10, bean.getMobileNo());
+			pstmt.setString(2, bean.getFirstName());
+			pstmt.setString(3, bean.getLastName());
+			pstmt.setDate(4, new java.sql.Date(bean.getDob().getTime()));
+			pstmt.setString(5, bean.getGender());
+			pstmt.setString(6, bean.getMobileNo());
+			pstmt.setString(7, bean.getEmail());
+			pstmt.setLong(8, bean.getCollegeId());
+			pstmt.setString(9, bean.getCollegeName());
+			pstmt.setLong(10, bean.getCourseId());
 			pstmt.setString(11, bean.getCourseName());
-			pstmt.setString(12, bean.getCollegeName());
+			pstmt.setLong(12, bean.getSubjectId());
 			pstmt.setString(13, bean.getSubjectName());
 			pstmt.setString(14, bean.getCreatedBy());
 			pstmt.setString(15, bean.getModifiedBy());
@@ -98,123 +99,22 @@ public class FacultyModel {
 		return pk;
 	}
 
-	public void delete(FacultyBean bean) throws ApplicationException {
-		Connection conn = null;
-		try {
-			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false); 
-			PreparedStatement pstmt = conn.prepareStatement("delete from st_faculty where id = ?");
-			pstmt.setLong(1, bean.getId());
-			pstmt.executeUpdate();
-			conn.commit();
-			pstmt.close();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (Exception ex) {
-				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
-			}
-			throw new ApplicationException("Exception : Exception in delete Faculty");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-	}
-
-	public FacultyBean findByEmail(String email) throws ApplicationException {
-		StringBuffer sql = new StringBuffer("select * from st_faculty where email_id = ?");
-		FacultyBean bean = null;
-		Connection conn = null;
-		System.out.println("sql" + sql);
-
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, email);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				bean = new FacultyBean();
-				bean.setId(rs.getLong(1));
-				bean.setCollegeId(rs.getLong(2));
-				bean.setSubjectId(rs.getLong(3));
-				bean.setCourseId(rs.getLong(4));
-				bean.setFirstName(rs.getString(5));
-				bean.setLastName(rs.getString(6));
-				bean.setGender(rs.getString(7));
-				bean.setDob(rs.getDate(8));
-				bean.setEmail(rs.getString(9));
-				bean.setMobileNo(rs.getString(10));
-				bean.setCourseName(rs.getString(11));
-				bean.setCollegeName(rs.getString(12));
-				bean.setSubjectName(rs.getString(13));
-				bean.setCreatedBy(rs.getString(14));
-				bean.setModifiedBy(rs.getString(15));
-				bean.setCreatedDatetime(rs.getTimestamp(16));
-				bean.setModifiedDatetime(rs.getTimestamp(17));
-			}
-			rs.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ApplicationException("Exception : Exception in getting Faculty by Email");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-		return bean;
-	}
-
-	public FacultyBean findByPK(long pk) throws ApplicationException {
-		StringBuffer sql = new StringBuffer("select * from st_faculty where id = ?");
-		FacultyBean bean = null;
-		Connection conn = null;
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setLong(1, pk);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				bean = new FacultyBean();
-				bean.setId(rs.getLong(1));
-				bean.setCollegeId(rs.getLong(2));
-				bean.setSubjectId(rs.getLong(3));
-				bean.setCourseId(rs.getLong(4));
-				bean.setFirstName(rs.getString(5));
-				bean.setLastName(rs.getString(6));
-				bean.setGender(rs.getString(7));
-				bean.setDob(rs.getDate(8));
-				bean.setEmail(rs.getString(9));
-				bean.setMobileNo(rs.getString(10));
-				bean.setCourseName(rs.getString(11));
-				bean.setCollegeName(rs.getString(12));
-				bean.setSubjectName(rs.getString(13));
-				bean.setCreatedBy(rs.getString(14));
-				bean.setModifiedBy(rs.getString(15));
-				bean.setCreatedDatetime(rs.getTimestamp(16));
-				bean.setModifiedDatetime(rs.getTimestamp(17));
-			}
-			rs.close();
-		} catch (Exception e) {
-			throw new ApplicationException("Exception : Exception in getting Faculty by pk");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-		return bean;
-	}
-
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 
 		// get College Name
 		CollegeModel collegeModel = new CollegeModel();
-		CollegeBean collegeBean = collegeModel.findByPK(bean.getCollegeId());
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
 		bean.setCollegeName(collegeBean.getName());
 
 		// get Course Name
 		CourseModel courseModel = new CourseModel();
-		CourseBean courseBean = courseModel.findByPK(bean.getCourseId());
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
 		bean.setCourseName(courseBean.getName());
 
 		// get Subject Name
 		SubjectModel subjectModel = new SubjectModel();
-		SubjectBean subjectBean = subjectModel.findByPK(bean.getSubjectId());
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
 		bean.setSubjectName(subjectBean.getName());
 
 		FacultyBean beanExist = findByEmail(bean.getEmail());
@@ -226,19 +126,19 @@ public class FacultyModel {
 
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_faculty set college_id = ?, subject_id = ?, course_id = ?, first_name = ?, last_name = ?, gender = ?, dob = ?, email_id = ?, mobile_no = ?, course_name = ?, college_name = ?, subject_name = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+					"update st_faculty set first_name = ?, last_name = ?, dob = ?, gender = ?, mobile_no = ?, email = ?, college_id = ?, college_name = ?, course_id = ?, course_name = ?, subject_id = ?, subject_name = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
 
-			pstmt.setLong(1, bean.getCollegeId());
-			pstmt.setLong(2, bean.getSubjectId());
-			pstmt.setLong(3, bean.getCourseId());
-			pstmt.setString(4, bean.getFirstName());
-			pstmt.setString(5, bean.getLastName());
-			pstmt.setString(6, bean.getGender());
-			pstmt.setDate(7, new java.sql.Date(bean.getDob().getTime()));
-			pstmt.setString(8, bean.getEmail());
-			pstmt.setString(9, bean.getMobileNo());
+			pstmt.setString(1, bean.getFirstName());
+			pstmt.setString(2, bean.getLastName());
+			pstmt.setDate(3, new java.sql.Date(bean.getDob().getTime()));
+			pstmt.setString(4, bean.getGender());
+			pstmt.setString(5, bean.getMobileNo());
+			pstmt.setString(6, bean.getEmail());
+			pstmt.setLong(7, bean.getCollegeId());
+			pstmt.setString(8, bean.getCollegeName());
+			pstmt.setLong(9, bean.getCourseId());
 			pstmt.setString(10, bean.getCourseName());
-			pstmt.setString(11, bean.getCollegeName());
+			pstmt.setLong(11, bean.getSubjectId());
 			pstmt.setString(12, bean.getSubjectName());
 			pstmt.setString(13, bean.getCreatedBy());
 			pstmt.setString(14, bean.getModifiedBy());
@@ -258,6 +158,109 @@ public class FacultyModel {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public void delete(FacultyBean bean) throws ApplicationException {
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_faculty where id = ?");
+			pstmt.setLong(1, bean.getId());
+			pstmt.executeUpdate();
+			conn.commit();
+			pstmt.close();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception : Exception in delete Faculty");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+	}
+
+	public FacultyBean findByPk(long pk) throws ApplicationException {
+		StringBuffer sql = new StringBuffer("select * from st_faculty where id = ?");
+		FacultyBean bean = null;
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setLong(1, pk);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new FacultyBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setDob(rs.getDate(4));
+				bean.setGender(rs.getString(5));
+				bean.setMobileNo(rs.getString(6));
+				bean.setEmail(rs.getString(7));
+				bean.setCollegeId(rs.getLong(8));
+				bean.setCollegeName(rs.getString(9));
+				bean.setCourseId(rs.getLong(10));
+				bean.setCourseName(rs.getString(11));
+				bean.setSubjectId(rs.getLong(12));
+				bean.setSubjectName(rs.getString(13));
+				bean.setCreatedBy(rs.getString(14));
+				bean.setModifiedBy(rs.getString(15));
+				bean.setCreatedDatetime(rs.getTimestamp(16));
+				bean.setModifiedDatetime(rs.getTimestamp(17));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in getting Faculty by pk");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
+	}
+
+	public FacultyBean findByEmail(String email) throws ApplicationException {
+		StringBuffer sql = new StringBuffer("select * from st_faculty where email = ?");
+		FacultyBean bean = null;
+		Connection conn = null;
+		System.out.println("sql" + sql);
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new FacultyBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setDob(rs.getDate(4));
+				bean.setGender(rs.getString(5));
+				bean.setMobileNo(rs.getString(6));
+				bean.setEmail(rs.getString(7));
+				bean.setCollegeId(rs.getLong(8));
+				bean.setCollegeName(rs.getString(9));
+				bean.setCourseId(rs.getLong(10));
+				bean.setCourseName(rs.getString(11));
+				bean.setSubjectId(rs.getLong(12));
+				bean.setSubjectName(rs.getString(13));
+				bean.setCreatedBy(rs.getString(14));
+				bean.setModifiedBy(rs.getString(15));
+				bean.setCreatedDatetime(rs.getTimestamp(16));
+				bean.setModifiedDatetime(rs.getTimestamp(17));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception : Exception in getting Faculty by Email");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
 	}
 
 	public List<FacultyBean> search(FacultyBean bean, int pageNo, int pageSize) throws ApplicationException {
@@ -289,7 +292,7 @@ public class FacultyModel {
 				sql.append(" and dob = " + bean.getDob());
 			}
 			if (bean.getEmail() != null && bean.getEmail().length() > 0) {
-				sql.append(" and email_id like '" + bean.getEmail() + "%'");
+				sql.append(" and email like '" + bean.getEmail() + "%'");
 			}
 			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
 				sql.append(" and mobile_no = " + bean.getMobileNo());
@@ -306,7 +309,7 @@ public class FacultyModel {
 		}
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			sql.append(" Limit " + pageNo + ", " + pageSize);
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
 
 		ArrayList<FacultyBean> list = new ArrayList<FacultyBean>();
@@ -318,17 +321,17 @@ public class FacultyModel {
 			while (rs.next()) {
 				bean = new FacultyBean();
 				bean.setId(rs.getLong(1));
-				bean.setCollegeId(rs.getLong(2));
-				bean.setSubjectId(rs.getLong(3));
-				bean.setCourseId(rs.getLong(4));
-				bean.setFirstName(rs.getString(5));
-				bean.setLastName(rs.getString(6));
-				bean.setGender(rs.getString(7));
-				bean.setDob(rs.getDate(8));
-				bean.setEmail(rs.getString(9));
-				bean.setMobileNo(rs.getString(10));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setDob(rs.getDate(4));
+				bean.setGender(rs.getString(5));
+				bean.setMobileNo(rs.getString(6));
+				bean.setEmail(rs.getString(7));
+				bean.setCollegeId(rs.getLong(8));
+				bean.setCollegeName(rs.getString(9));
+				bean.setCourseId(rs.getLong(10));
 				bean.setCourseName(rs.getString(11));
-				bean.setCollegeName(rs.getString(12));
+				bean.setSubjectId(rs.getLong(12));
 				bean.setSubjectName(rs.getString(13));
 				bean.setCreatedBy(rs.getString(14));
 				bean.setModifiedBy(rs.getString(15));
@@ -337,6 +340,7 @@ public class FacultyModel {
 				list.add(bean);
 			}
 			rs.close();
+			pstmt.close();
 		} catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in search Faculty");
 		} finally {

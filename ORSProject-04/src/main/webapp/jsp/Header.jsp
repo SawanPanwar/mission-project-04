@@ -40,6 +40,22 @@
 	<b>|</b>
 	<a href="MarksheetListCtl"><b>Marksheet List</b></a>
 	<b>|</b>
+	<a href="CourseCtl"><b>Add Course</b></a>
+	<b>|</b>
+	<a href="CourseListCtl"><b>Course List</b></a>
+	<b>|</b>
+	<a href="SubjectCtl"><b>Add Subject</b></a>
+	<b>|</b>
+	<a href="SubjectListCtl"><b>Subject List</b></a>
+	<b>|</b>
+	<a href="TimetableCtl"><b>Add Timetable</b></a>
+	<b>|</b>
+	<a href="TimetableListCtl"><b>Timetable List</b></a>
+	<b>|</b>
+	<a href="FacultyCtl"><b>Add Faculty</b></a>
+	<b>|</b>
+	<a href="FacultyListCtl"><b>Faculty List</b></a>
+	<b>|</b>
 	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
 		} else {

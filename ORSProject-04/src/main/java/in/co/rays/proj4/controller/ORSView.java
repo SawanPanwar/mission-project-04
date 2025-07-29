@@ -44,4 +44,28 @@ public interface ORSView {
 
 	public String MARKSHEET_LIST_VIEW = PAGE_FOLDER + "/MarksheetListView.jsp";
 	public String MARKSHEET_LIST_CTL = APP_CONTEXT + "/MarksheetListCtl";
+
+	public String COURSE_VIEW = PAGE_FOLDER + "/CourseView.jsp";
+	public String COURSE_CTL = APP_CONTEXT + "/CourseCtl";
+
+	public String COURSE_LIST_VIEW = PAGE_FOLDER + "/CourseListView.jsp";
+	public String COURSE_LIST_CTL = APP_CONTEXT + "/CourseListCtl";
+
+	public String SUBJECT_VIEW = PAGE_FOLDER + "/SubjectView.jsp";
+	public String SUBJECT_CTL = APP_CONTEXT + "/SubjectCtl";
+
+	public String SUBJECT_LIST_VIEW = PAGE_FOLDER + "/SubjectListView.jsp";
+	public String SUBJECT_LIST_CTL = APP_CONTEXT + "/SubjectListCtl";
+
+	public String TIMETABLE_VIEW = PAGE_FOLDER + "/TimetableView.jsp";
+	public String TIMETABLE_CTL = APP_CONTEXT + "/TimetableCtl";
+
+	public String TIMETABLE_LIST_VIEW = PAGE_FOLDER + "/TimetableListView.jsp";
+	public String TIMETABLE_LIST_CTL = APP_CONTEXT + "/TimetableListCtl";
+
+	public String FACULTY_VIEW = PAGE_FOLDER + "/FacultyView.jsp";
+	public String FACULTY_CTL = APP_CONTEXT + "/FacultyCtl";
+	
+	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
+	public String FACULTY_LIST_CTL = APP_CONTEXT + "/FacultyListCtl";
 }

@@ -20,14 +20,13 @@ public class MarksheetModel {
 		int pk = 0;
 		try {
 			conn = JDBCDataSource.getConnection();
-			System.out.println("Connection Succesfully Establish");
-
 			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_marksheet");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
 			}
 			rs.close();
+			pstmt.close();
 		} catch (Exception e) {
 			throw new DatabaseException("Exception in Marksheet getting PK");
 		} finally {
@@ -86,99 +85,6 @@ public class MarksheetModel {
 		return pk;
 	}
 
-	public void delete(MarksheetBean bean) throws ApplicationException {
-
-		Connection conn = null;
-
-		try {
-			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false); // Begin transaction
-			PreparedStatement pstmt = conn.prepareStatement("delete from st_marksheet where id = ?");
-			pstmt.setLong(1, bean.getId());
-			System.out.println("Deleted Marksheet");
-			pstmt.executeUpdate();
-			conn.commit(); // End transaction
-			pstmt.close();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (Exception ex) {
-				throw new ApplicationException("Delete rollback exception " + ex.getMessage());
-			}
-			throw new ApplicationException("Exception in delete marksheet");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-	}
-
-	public MarksheetBean findByRollNo(String rollNo) throws ApplicationException {
-
-		StringBuffer sql = new StringBuffer("select * from st_marksheet where roll_no = ?");
-		MarksheetBean bean = null;
-		Connection conn = null;
-
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, rollNo);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				bean = new MarksheetBean();
-				bean.setId(rs.getLong(1));
-				bean.setRollNo(rs.getString(2));
-				bean.setStudentId(rs.getLong(3));
-				bean.setName(rs.getString(4));
-				bean.setPhysics(rs.getInt(5));
-				bean.setChemistry(rs.getInt(6));
-				bean.setMaths(rs.getInt(7));
-				bean.setCreatedBy(rs.getString(8));
-				bean.setModifiedBy(rs.getString(9));
-				bean.setCreatedDatetime(rs.getTimestamp(10));
-				bean.setModifiedDatetime(rs.getTimestamp(11));
-			}
-			rs.close();
-		} catch (Exception e) {
-			throw new ApplicationException("Exception in getting marksheet by roll no");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-		return bean;
-	}
-
-	public MarksheetBean findByPk(long pk) throws ApplicationException {
-
-		StringBuffer sql = new StringBuffer("select * from st_marksheet where id = ?");
-		MarksheetBean bean = null;
-		Connection conn = null;
-
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setLong(1, pk);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				bean = new MarksheetBean();
-				bean.setId(rs.getLong(1));
-				bean.setRollNo(rs.getString(2));
-				bean.setStudentId(rs.getLong(3));
-				bean.setName(rs.getString(4));
-				bean.setPhysics(rs.getInt(5));
-				bean.setChemistry(rs.getInt(6));
-				bean.setMaths(rs.getInt(7));
-				bean.setCreatedBy(rs.getString(8));
-				bean.setModifiedBy(rs.getString(9));
-				bean.setCreatedDatetime(rs.getTimestamp(10));
-				bean.setModifiedDatetime(rs.getTimestamp(11));
-			}
-			rs.close();
-		} catch (Exception e) {
-			throw new ApplicationException("Exception in getting marksheet by pk");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
-		}
-		return bean;
-	}
-
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
@@ -223,6 +129,101 @@ public class MarksheetModel {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public void delete(MarksheetBean bean) throws ApplicationException {
+
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false); // Begin transaction
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_marksheet where id = ?");
+			pstmt.setLong(1, bean.getId());
+			System.out.println("Deleted Marksheet");
+			pstmt.executeUpdate();
+			conn.commit(); // End transaction
+			pstmt.close();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Delete rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception in delete marksheet");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+	}
+
+	public MarksheetBean findByPk(long pk) throws ApplicationException {
+
+		StringBuffer sql = new StringBuffer("select * from st_marksheet where id = ?");
+		MarksheetBean bean = null;
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setLong(1, pk);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new MarksheetBean();
+				bean.setId(rs.getLong(1));
+				bean.setRollNo(rs.getString(2));
+				bean.setStudentId(rs.getLong(3));
+				bean.setName(rs.getString(4));
+				bean.setPhysics(rs.getInt(5));
+				bean.setChemistry(rs.getInt(6));
+				bean.setMaths(rs.getInt(7));
+				bean.setCreatedBy(rs.getString(8));
+				bean.setModifiedBy(rs.getString(9));
+				bean.setCreatedDatetime(rs.getTimestamp(10));
+				bean.setModifiedDatetime(rs.getTimestamp(11));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			throw new ApplicationException("Exception in getting marksheet by pk");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
+	}
+
+	public MarksheetBean findByRollNo(String rollNo) throws ApplicationException {
+
+		StringBuffer sql = new StringBuffer("select * from st_marksheet where roll_no = ?");
+		MarksheetBean bean = null;
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, rollNo);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new MarksheetBean();
+				bean.setId(rs.getLong(1));
+				bean.setRollNo(rs.getString(2));
+				bean.setStudentId(rs.getLong(3));
+				bean.setName(rs.getString(4));
+				bean.setPhysics(rs.getInt(5));
+				bean.setChemistry(rs.getInt(6));
+				bean.setMaths(rs.getInt(7));
+				bean.setCreatedBy(rs.getString(8));
+				bean.setModifiedBy(rs.getString(9));
+				bean.setCreatedDatetime(rs.getTimestamp(10));
+				bean.setModifiedDatetime(rs.getTimestamp(11));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			throw new ApplicationException("Exception in getting marksheet by roll no");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
 	}
 
 	public List<MarksheetBean> search(MarksheetBean bean, int pageNo, int pageSize) throws ApplicationException {
@@ -313,6 +314,7 @@ public class MarksheetModel {
 				list.add(bean);
 			}
 			rs.close();
+			pstmt.close();
 		} catch (Exception e) {
 			throw new ApplicationException("Exception in getting merit list of Marksheet");
 		} finally {

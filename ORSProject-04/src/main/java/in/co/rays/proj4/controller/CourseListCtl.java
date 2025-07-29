@@ -9,23 +9,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.RoleModel;
-import in.co.rays.proj4.model.UserModel;
+import in.co.rays.proj4.model.CourseModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "UserListCtl", urlPatterns = { "/UserListCtl" })
-public class UserListCtl extends BaseCtl {
+@WebServlet(name = "CourseListCtl", urlPatterns = { "/CourseListCtl" })
+public class CourseListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		RoleModel roleModel = new RoleModel();
+
+		CourseModel courseModel = new CourseModel();
+
 		try {
-			List roleList = roleModel.list();
-			request.setAttribute("roleList", roleList);
+			List courseList = courseModel.list();
+			request.setAttribute("courseList", courseList);
+
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
@@ -33,12 +35,11 @@ public class UserListCtl extends BaseCtl {
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
+		CourseBean bean = new CourseBean();
 
-		UserBean bean = new UserBean();
-
-		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
-		bean.setLogin(DataUtility.getString(request.getParameter("login")));
-		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
+		bean.setName(DataUtility.getString(request.getParameter("name")));
+		bean.setId(DataUtility.getLong(request.getParameter("courseId")));
+		bean.setDuration(DataUtility.getString(request.getParameter("duration")));
 
 		return bean;
 	}
@@ -50,12 +51,12 @@ public class UserListCtl extends BaseCtl {
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		UserBean bean = (UserBean) populateBean(request);
-		UserModel model = new UserModel();
+		CourseBean bean = (CourseBean) populateBean(request);
+		CourseModel model = new CourseModel();
 
 		try {
-			List<UserBean> list = model.search(bean, pageNo, pageSize);
-			List<UserBean> next = model.search(bean, pageNo + 1, pageSize);
+			List<CourseBean> list = model.search(bean, pageNo, pageSize);
+			List<CourseBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.isEmpty()) {
 				ServletUtility.setErrorMessage("No record found", request);
@@ -87,8 +88,8 @@ public class UserListCtl extends BaseCtl {
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		UserBean bean = (UserBean) populateBean(request);
-		UserModel model = new UserModel();
+		CourseBean bean = (CourseBean) populateBean(request);
+		CourseModel model = new CourseModel();
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 		String[] ids = request.getParameterValues("ids");
@@ -106,33 +107,35 @@ public class UserListCtl extends BaseCtl {
 				}
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_CTL, request, response);
+				ServletUtility.redirect(ORSView.COURSE_CTL, request, response);
 				return;
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
 				if (ids != null && ids.length > 0) {
-					UserBean deletebean = new UserBean();
+					CourseBean deletebean = new CourseBean();
 					for (String id : ids) {
 						deletebean.setId(DataUtility.getInt(id));
 						model.delete(deletebean);
-						ServletUtility.setSuccessMessage("User deleted successfully", request);
+						ServletUtility.setSuccessMessage("Course deleted successfully", request);
 					}
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
 				return;
 			} else if (OP_BACK.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
 				return;
 			}
 
 			list = model.search(bean, pageNo, pageSize);
 			next = model.search(bean, pageNo + 1, pageSize);
 
-			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No record found ", request);
+			if (!OP_DELETE.equalsIgnoreCase(op)) {
+				if (list == null || list.size() == 0) {
+					ServletUtility.setErrorMessage("No record found ", request);
+				}
 			}
 
 			ServletUtility.setList(list, request);
@@ -151,6 +154,7 @@ public class UserListCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.USER_LIST_VIEW;
+		return ORSView.COURSE_LIST_VIEW;
 	}
+
 }
