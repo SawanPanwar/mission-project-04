@@ -37,6 +37,7 @@ public class RoleCtl extends BaseCtl {
 			request.setAttribute("description", PropertyReader.getValue("error.require", "Description"));
 			pass = false;
 		}
+		
 		return pass;
 	}
 
@@ -57,23 +58,19 @@ public class RoleCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		RoleModel model = new RoleModel();
 
-		long id = DataUtility.getLong(request.getParameter("id"));
-
-		if (id > 0 || op != null) {
-			RoleBean bean;
+		if (id > 0) {
 			try {
-				bean = model.findByPk(id);
+				RoleBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
 			}
 		}
-
 		ServletUtility.forward(getView(), request, response);
 	}
 

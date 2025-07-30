@@ -63,10 +63,6 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
 					<td colspan="2"><input type="submit" name="operation"
 						value="<%=LoginCtl.OP_SIGN_IN%>"> &nbsp; <input
 						type="submit" name="operation" value="<%=LoginCtl.OP_SIGN_UP%>">

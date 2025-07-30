@@ -32,10 +32,12 @@ public class CourseCtl extends BaseCtl {
 			request.setAttribute("name", "Invalid Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("duration"))) {
 			request.setAttribute("duration", PropertyReader.getValue("error.require", "Duration"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("description"))) {
 			request.setAttribute("description", PropertyReader.getValue("error.require", "Description"));
 			pass = false;
@@ -62,15 +64,13 @@ public class CourseCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		CourseModel model = new CourseModel();
 
-		if (id > 0 || op != null) {
-			CourseBean bean;
+		if (id > 0) {
 			try {
-				bean = model.findByPk(id);
+				CourseBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -86,6 +86,8 @@ public class CourseCtl extends BaseCtl {
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		CourseModel model = new CourseModel();
+
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
 			CourseBean bean = (CourseBean) populateBean(request);
@@ -103,7 +105,7 @@ public class CourseCtl extends BaseCtl {
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			CourseBean bean = (CourseBean) populateBean(request);
 			try {
-				if (bean.getId() > 0) {
+				if (id > 0) {
 					model.update(bean);
 				}
 				ServletUtility.setBean(bean, request);

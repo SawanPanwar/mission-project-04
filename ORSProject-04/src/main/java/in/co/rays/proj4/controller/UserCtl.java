@@ -25,9 +25,9 @@ public class UserCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		RoleModel model = new RoleModel();
+		RoleModel roleModel = new RoleModel();
 		try {
-			List<RoleBean> roleList = model.list();
+			List<RoleBean> roleList = roleModel.list();
 			request.setAttribute("roleList", roleList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -123,7 +123,6 @@ public class UserCtl extends BaseCtl {
 		UserBean bean = new UserBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));
@@ -132,6 +131,7 @@ public class UserCtl extends BaseCtl {
 		bean.setGender(DataUtility.getString(request.getParameter("gender")));
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
+		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
 
 		populateDTO(bean, request);
 
@@ -141,15 +141,13 @@ public class UserCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		UserModel model = new UserModel();
 
-		if (id > 0 || op != null) {
-			UserBean bean;
+		if (id > 0) {
 			try {
-				bean = model.findByPk(id);
+				UserBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -165,6 +163,8 @@ public class UserCtl extends BaseCtl {
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		UserModel model = new UserModel();
+
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
@@ -182,7 +182,7 @@ public class UserCtl extends BaseCtl {
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
 			try {
-				if (bean.getId() > 0) {
+				if (id > 0) {
 					model.update(bean);
 				}
 				ServletUtility.setBean(bean, request);
@@ -195,7 +195,7 @@ public class UserCtl extends BaseCtl {
 				ServletUtility.setErrorMessage("Login Id already exists", request);
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.USER_CTL, request, response);
+			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
 			return;
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);

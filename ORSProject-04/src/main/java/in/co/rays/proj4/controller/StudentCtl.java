@@ -24,9 +24,9 @@ public class StudentCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		CollegeModel model = new CollegeModel();
+		CollegeModel collegeModel = new CollegeModel();
 		try {
-			List collegeList = model.list();
+			List collegeList = collegeModel.list();
 			request.setAttribute("collegeList", collegeList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -46,6 +46,7 @@ public class StudentCtl extends BaseCtl {
 			request.setAttribute("firstName", "Invalid First Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("lastName"))) {
 			request.setAttribute("lastName", PropertyReader.getValue("error.require", "Last Name"));
 			pass = false;
@@ -53,6 +54,7 @@ public class StudentCtl extends BaseCtl {
 			request.setAttribute("lastName", "Invalid Last Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("mobileNo"))) {
 			request.setAttribute("mobileNo", PropertyReader.getValue("error.require", "Mobile No"));
 			pass = false;
@@ -63,6 +65,7 @@ public class StudentCtl extends BaseCtl {
 			request.setAttribute("mobileNo", "Invalid Mobile No");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("gender"))) {
 			request.setAttribute("gender", PropertyReader.getValue("error.require", "Gender"));
 			pass = false;
@@ -74,10 +77,12 @@ public class StudentCtl extends BaseCtl {
 			request.setAttribute("email", PropertyReader.getValue("error.email", "Email "));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("collegeId"))) {
 			request.setAttribute("collegeId", PropertyReader.getValue("error.require", "College Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("dob"))) {
 			request.setAttribute("dob", PropertyReader.getValue("error.require", "Date of Birth"));
 			pass = false;
@@ -111,15 +116,13 @@ public class StudentCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		StudentModel model = new StudentModel();
 
-		if (id > 0 || op != null) {
-			StudentBean bean;
+		if (id > 0) {
 			try {
-				bean = model.findByPk(id);
+				StudentBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -135,6 +138,8 @@ public class StudentCtl extends BaseCtl {
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		StudentModel model = new StudentModel();
+
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
 			StudentBean bean = (StudentBean) populateBean(request);
@@ -152,7 +157,7 @@ public class StudentCtl extends BaseCtl {
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			StudentBean bean = (StudentBean) populateBean(request);
 			try {
-				if (bean.getId() > 0) {
+				if (id > 0) {
 					model.update(bean);
 				}
 				ServletUtility.setBean(bean, request);

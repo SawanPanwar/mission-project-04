@@ -32,18 +32,22 @@ public class CollegeCtl extends BaseCtl {
 			request.setAttribute("name", "Invalid Name");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("address"))) {
 			request.setAttribute("address", PropertyReader.getValue("error.require", "Address"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("state"))) {
 			request.setAttribute("state", PropertyReader.getValue("error.require", "State"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("city"))) {
 			request.setAttribute("city", PropertyReader.getValue("error.require", "City"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("phoneNo"))) {
 			request.setAttribute("phoneNo", PropertyReader.getValue("error.require", "Phone No"));
 			pass = false;
@@ -78,23 +82,19 @@ public class CollegeCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		CollegeModel model = new CollegeModel();
 
-		long id = DataUtility.getLong(request.getParameter("id"));
-
 		if (id > 0) {
-			CollegeBean bean;
 			try {
-				bean = model.findByPk(id);
+				CollegeBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
 			}
 		}
-
 		ServletUtility.forward(getView(), request, response);
 	}
 
@@ -108,9 +108,7 @@ public class CollegeCtl extends BaseCtl {
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-
 			CollegeBean bean = (CollegeBean) populateBean(request);
-
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
@@ -123,9 +121,7 @@ public class CollegeCtl extends BaseCtl {
 				ServletUtility.setErrorMessage("College Name already exists", request);
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
-
 			CollegeBean bean = (CollegeBean) populateBean(request);
-
 			try {
 				if (id > 0) {
 					model.update(bean);

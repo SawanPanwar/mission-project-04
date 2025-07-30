@@ -125,5 +125,4 @@ public class LoginCtl extends BaseCtl {
 	protected String getView() {
 		return ORSView.LOGIN_VIEW;
 	}
-
 }

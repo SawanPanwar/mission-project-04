@@ -24,9 +24,9 @@ public class MarksheetCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		StudentModel model = new StudentModel();
+		StudentModel studentModel = new StudentModel();
 		try {
-			List studentList = model.list();
+			List studentList = studentModel.list();
 			request.setAttribute("studentList", studentList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class MarksheetCtl extends BaseCtl {
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
 		bean.setName(DataUtility.getString(request.getParameter("name")));
-		
+
 		if (request.getParameter("physics") != null && request.getParameter("physics").length() != 0) {
 			bean.setPhysics(DataUtility.getInt(request.getParameter("physics")));
 		}
@@ -117,7 +117,7 @@ public class MarksheetCtl extends BaseCtl {
 		if (request.getParameter("maths") != null && request.getParameter("maths").length() != 0) {
 			bean.setMaths(DataUtility.getInt(request.getParameter("maths")));
 		}
-		
+
 		bean.setStudentId(DataUtility.getLong(request.getParameter("studentId")));
 
 		populateDTO(bean, request);
@@ -128,15 +128,13 @@ public class MarksheetCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		MarksheetModel model = new MarksheetModel();
 
-		if (id > 0 || op != null) {
-			MarksheetBean bean;
+		if (id > 0) {
 			try {
-				bean = model.findByPk(id);
+				MarksheetBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -152,6 +150,8 @@ public class MarksheetCtl extends BaseCtl {
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		MarksheetModel model = new MarksheetModel();
+		
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
 			MarksheetBean bean = (MarksheetBean) populateBean(request);
@@ -169,7 +169,7 @@ public class MarksheetCtl extends BaseCtl {
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			MarksheetBean bean = (MarksheetBean) populateBean(request);
 			try {
-				if (bean.getId() > 0) {
+				if (id > 0) {
 					model.update(bean);
 				}
 				ServletUtility.setBean(bean, request);

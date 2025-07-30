@@ -24,9 +24,9 @@ public class SubjectCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		CourseModel model = new CourseModel();
+		CourseModel courseModel = new CourseModel();
 		try {
-			List courseList = model.list();
+			List courseList = courseModel.list();
 			request.setAttribute("courseList", courseList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -43,10 +43,12 @@ public class SubjectCtl extends BaseCtl {
 			request.setAttribute("name", PropertyReader.getValue("error.require", "Subject Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("courseId"))) {
 			request.setAttribute("courseId", PropertyReader.getValue("error.require", "Course Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("description"))) {
 			request.setAttribute("description", PropertyReader.getValue("error.require", "Description"));
 			pass = false;
@@ -73,23 +75,19 @@ public class SubjectCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		SubjectModel model = new SubjectModel();
 
-		long id = DataUtility.getLong(request.getParameter("id"));
-
 		if (id > 0) {
-			SubjectBean bean;
 			try {
-				bean = model.findByPk(id);
+				SubjectBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
 			}
 		}
-
 		ServletUtility.forward(getView(), request, response);
 	}
 
@@ -103,9 +101,7 @@ public class SubjectCtl extends BaseCtl {
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-
 			SubjectBean bean = (SubjectBean) populateBean(request);
-
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
@@ -118,9 +114,7 @@ public class SubjectCtl extends BaseCtl {
 				ServletUtility.setErrorMessage("Subject Name already exists", request);
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
-
 			SubjectBean bean = (SubjectBean) populateBean(request);
-
 			try {
 				if (id > 0) {
 					model.update(bean);
@@ -134,7 +128,6 @@ public class SubjectCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Subject Name already exists", request);
 			}
-
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
 			return;

@@ -90,9 +90,11 @@ public class MarksheetListCtl extends BaseCtl {
 				} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
 					pageNo--;
 				}
+
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.MARKSHEET_CTL, request, response);
 				return;
+
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
 				if (ids != null && ids.length > 0) {
@@ -105,9 +107,11 @@ public class MarksheetListCtl extends BaseCtl {
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
+
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
 				return;
+
 			} else if (OP_BACK.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
 				return;
@@ -116,10 +120,8 @@ public class MarksheetListCtl extends BaseCtl {
 			list = model.search(bean, pageNo, pageSize);
 			next = model.search(bean, pageNo + 1, pageSize);
 
-			if (!OP_DELETE.equalsIgnoreCase(op)) {
-				if (list == null || list.size() == 0) {
-					ServletUtility.setErrorMessage("No record found ", request);
-				}
+			if (list == null || list.size() == 0) {
+				ServletUtility.setErrorMessage("No record found ", request);
 			}
 
 			ServletUtility.setList(list, request);

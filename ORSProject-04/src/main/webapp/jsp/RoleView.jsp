@@ -61,7 +61,7 @@
                 <tr>
                     <th align="left">Description<span style="color: red">*</span></th>
                     <td align="center">
-                        <textarea style="width: 173px; resize: none;" name="description" rows="3"
+                        <textarea style="width: 170px; resize: none;" name="description" rows="3"
                             placeholder="Enter Short description"><%=DataUtility.getStringData(bean.getDescription()).trim()%></textarea>
                     </td>
                     <td style="position: fixed;">

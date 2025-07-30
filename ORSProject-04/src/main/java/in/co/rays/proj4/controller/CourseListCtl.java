@@ -27,7 +27,6 @@ public class CourseListCtl extends BaseCtl {
 		try {
 			List courseList = courseModel.list();
 			request.setAttribute("courseList", courseList);
-
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
@@ -109,6 +108,7 @@ public class CourseListCtl extends BaseCtl {
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.COURSE_CTL, request, response);
 				return;
+
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
 				if (ids != null && ids.length > 0) {
@@ -121,9 +121,11 @@ public class CourseListCtl extends BaseCtl {
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
+
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
 				return;
+
 			} else if (OP_BACK.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
 				return;
@@ -132,10 +134,8 @@ public class CourseListCtl extends BaseCtl {
 			list = model.search(bean, pageNo, pageSize);
 			next = model.search(bean, pageNo + 1, pageSize);
 
-			if (!OP_DELETE.equalsIgnoreCase(op)) {
-				if (list == null || list.size() == 0) {
-					ServletUtility.setErrorMessage("No record found ", request);
-				}
+			if (list == null || list.size() == 0) {
+				ServletUtility.setErrorMessage("No record found ", request);
 			}
 
 			ServletUtility.setList(list, request);
@@ -156,5 +156,4 @@ public class CourseListCtl extends BaseCtl {
 	protected String getView() {
 		return ORSView.COURSE_LIST_VIEW;
 	}
-
 }

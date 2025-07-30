@@ -51,6 +51,7 @@ public class TimetableCtl extends BaseCtl {
 			request.setAttribute("semester", PropertyReader.getValue("error.require", "Semester"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("examDate"))) {
 			request.setAttribute("examDate", PropertyReader.getValue("error.require", "Date of Exam"));
 			pass = false;
@@ -61,18 +62,22 @@ public class TimetableCtl extends BaseCtl {
 			request.setAttribute("examDate", "Exam should not be on Sunday");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("examTime"))) {
 			request.setAttribute("examTime", PropertyReader.getValue("error.require", "Exam Time"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("description"))) {
 			request.setAttribute("description", PropertyReader.getValue("error.require", "Description"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("courseId"))) {
 			request.setAttribute("courseId", PropertyReader.getValue("error.require", "Course Name"));
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("subjectId"))) {
 			request.setAttribute("subjectId", PropertyReader.getValue("error.require", "Subject Name"));
 			pass = false;
@@ -87,17 +92,11 @@ public class TimetableCtl extends BaseCtl {
 		TimetableBean bean = new TimetableBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-
 		bean.setSemester(DataUtility.getString(request.getParameter("semester")));
-
 		bean.setDescription(DataUtility.getString(request.getParameter("description")));
-
 		bean.setExamTime(DataUtility.getString(request.getParameter("examTime")));
-
 		bean.setExamDate(DataUtility.getDate(request.getParameter("examDate")));
-
 		bean.setCourseId(DataUtility.getLong(request.getParameter("courseId")));
-
 		bean.setSubjectId(DataUtility.getLong(request.getParameter("subjectId")));
 
 		populateDTO(bean, request);
@@ -108,23 +107,19 @@ public class TimetableCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
 		TimetableModel model = new TimetableModel();
 
-		long id = DataUtility.getLong(request.getParameter("id"));
-
 		if (id > 0) {
-			TimetableBean bean;
 			try {
-				bean = model.findByPk(id);
+				TimetableBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
 			}
 		}
-
 		ServletUtility.forward(getView(), request, response);
 	}
 
@@ -190,7 +185,6 @@ public class TimetableCtl extends BaseCtl {
 					ServletUtility.setBean(bean, request);
 					ServletUtility.setErrorMessage("Timetable already exist!", request);
 				}
-
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
@@ -198,7 +192,6 @@ public class TimetableCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Timetable already exist!", request);
 			}
-
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.TIMETABLE_LIST_CTL, request, response);
 			return;

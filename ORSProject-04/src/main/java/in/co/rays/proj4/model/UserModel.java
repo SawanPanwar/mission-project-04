@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -383,37 +382,6 @@ public class UserModel {
 		EmailUtility.sendMail(msg);
 
 		return flag;
-	}
-
-	public boolean resetPassword(UserBean bean) throws ApplicationException {
-
-		String newPassword = String.valueOf(new Date().getTime()).substring(0, 4);
-		UserBean userData = findByPk(bean.getId());
-		userData.setPassword(newPassword);
-
-		try {
-			update(userData);
-		} catch (DuplicateRecordException e) {
-			return false;
-		}
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("login", bean.getLogin());
-		map.put("password", bean.getPassword());
-		map.put("firstName", bean.getFirstName());
-		map.put("lastName", bean.getLastName());
-
-		String message = EmailBuilder.getForgetPasswordMessage(map);
-
-		EmailMessage msg = new EmailMessage();
-		msg.setTo(bean.getLogin());
-		msg.setSubject("Password has been reset");
-		msg.setMessage(message);
-		msg.setMessageType(EmailMessage.HTML_MSG);
-
-		EmailUtility.sendMail(msg);
-
-		return true;
 	}
 
 	public boolean forgetPassword(String login) throws ApplicationException, RecordNotFoundException {
