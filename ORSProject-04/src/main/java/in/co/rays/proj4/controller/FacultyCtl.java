@@ -43,7 +43,6 @@ public class FacultyCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -152,6 +151,7 @@ public class FacultyCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
@@ -173,12 +173,13 @@ public class FacultyCtl extends BaseCtl {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Faculty added successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Email already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			FacultyBean bean = (FacultyBean) populateBean(request);
@@ -188,12 +189,13 @@ public class FacultyCtl extends BaseCtl {
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Faculty updated successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Email already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.FACULTY_LIST_CTL, request, response);

@@ -30,7 +30,6 @@ public class MarksheetCtl extends BaseCtl {
 			request.setAttribute("studentList", studentList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -138,6 +137,7 @@ public class MarksheetCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
@@ -150,7 +150,7 @@ public class MarksheetCtl extends BaseCtl {
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		MarksheetModel model = new MarksheetModel();
-		
+
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
@@ -159,12 +159,13 @@ public class MarksheetCtl extends BaseCtl {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Marksheet added successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Roll No already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			MarksheetBean bean = (MarksheetBean) populateBean(request);
@@ -174,12 +175,13 @@ public class MarksheetCtl extends BaseCtl {
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Marksheet updated successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Roll No already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);

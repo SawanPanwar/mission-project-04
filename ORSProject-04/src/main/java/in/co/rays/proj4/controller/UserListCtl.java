@@ -71,6 +71,8 @@ public class UserListCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
+			return;
 		}
 	}
 
@@ -148,6 +150,7 @@ public class UserListCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
 			return;
 		}
 	}

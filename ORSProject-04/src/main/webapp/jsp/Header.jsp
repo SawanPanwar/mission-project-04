@@ -20,6 +20,14 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
+	<a href="MyProfileCtl"><b>My Profile</b></a>
+	<b>|</b>
+	<a href="ChangePasswordCtl"><b>Change Password</b></a>
+	<b>|</b>
+	<a href="GetMarksheetCtl"><b>Get Marksheet</b></a>
+	<b>|</b>
+	<a href="MarksheetMeritListCtl"><b>Marksheet Merit List</b></a>
+	<b>|</b>
 	<a href="UserCtl"><b>Add User</b></a>
 	<b>|</b>
 	<a href="UserListCtl"><b>User List</b></a>

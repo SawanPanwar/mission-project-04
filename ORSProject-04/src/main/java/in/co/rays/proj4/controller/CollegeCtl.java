@@ -92,6 +92,7 @@ public class CollegeCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
@@ -113,12 +114,13 @@ public class CollegeCtl extends BaseCtl {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data is successfully saved", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("College Name already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			CollegeBean bean = (CollegeBean) populateBean(request);
@@ -128,14 +130,14 @@ public class CollegeCtl extends BaseCtl {
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data is successfully updated", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("College Name already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
-
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
 			return;

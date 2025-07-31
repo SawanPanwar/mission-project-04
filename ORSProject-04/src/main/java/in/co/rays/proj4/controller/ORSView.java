@@ -12,11 +12,26 @@ public interface ORSView {
 	public String USER_REGISTRATION_VIEW = PAGE_FOLDER + "/UserRegistrationView.jsp";
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 
-	public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
-	public String USER_CTL = APP_CONTEXT + "/UserCtl";
+	public String FORGET_PASSWORD_VIEW = PAGE_FOLDER + "/ForgetPasswordView.jsp";
+	public String FORGET_PASSWORD_CTL = APP_CONTEXT + "/ForgetPasswordCtl";
 
 	public String LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
+
+	public String MY_PROFILE_VIEW = PAGE_FOLDER + "/MyProfileView.jsp";
+	public String MY_PROFILE_CTL = APP_CONTEXT + "/MyProfileCtl";
+
+	public String CHANGE_PASSWORD_VIEW = PAGE_FOLDER + "/ChangePasswordView.jsp";
+	public String CHANGE_PASSWORD_CTL = APP_CONTEXT + "/ChangePasswordCtl";
+
+	public String GET_MARKSHEET_VIEW = PAGE_FOLDER + "/GetMarksheetView.jsp";
+	public String GET_MARKSHEET_CTL = APP_CONTEXT + "/GetMarksheetCtl";
+
+	public String MARKSHEET_MERIT_LIST_VIEW = PAGE_FOLDER + "/MarksheetMeritListView.jsp";
+	public String MARKSHEET_MERIT_LIST_CTL = APP_CONTEXT + "/MarksheetMeritListCtl";
+
+	public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
+	public String USER_CTL = APP_CONTEXT + "/UserCtl";
 
 	public String USER_LIST_VIEW = PAGE_FOLDER + "/UserListView.jsp";
 	public String USER_LIST_CTL = APP_CONTEXT + "/UserListCtl";
@@ -65,7 +80,11 @@ public interface ORSView {
 
 	public String FACULTY_VIEW = PAGE_FOLDER + "/FacultyView.jsp";
 	public String FACULTY_CTL = APP_CONTEXT + "/FacultyCtl";
-	
+
 	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
 	public String FACULTY_LIST_CTL = APP_CONTEXT + "/FacultyListCtl";
+
+	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+
 }

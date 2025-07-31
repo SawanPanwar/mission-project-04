@@ -350,19 +350,19 @@ public class UserModel {
 			throws RecordNotFoundException, ApplicationException {
 
 		boolean flag = false;
-		UserBean beanExist = null;
 
-		beanExist = findByPk(id);
+		UserBean beanExist = findByPk(id);
+
 		if (beanExist != null && beanExist.getPassword().equals(oldPassword)) {
 			beanExist.setPassword(newPassword);
 			try {
 				update(beanExist);
+				flag = true;
 			} catch (DuplicateRecordException e) {
-				throw new ApplicationException("LoginId is already exist");
+				throw new ApplicationException("Login Id already exist");
 			}
-			flag = true;
 		} else {
-			throw new RecordNotFoundException("Login not exist");
+			throw new RecordNotFoundException("Old Password is Invalid");
 		}
 
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -375,7 +375,7 @@ public class UserModel {
 
 		EmailMessage msg = new EmailMessage();
 		msg.setTo(beanExist.getLogin());
-		msg.setSubject("Rays ORS Password has been changed Successfully.");
+		msg.setSubject("ORSProject-04 Password has been changed Successfully.");
 		msg.setMessage(message);
 		msg.setMessageType(EmailMessage.HTML_MSG);
 
@@ -384,36 +384,39 @@ public class UserModel {
 		return flag;
 	}
 
-	public boolean forgetPassword(String login) throws ApplicationException, RecordNotFoundException {
+	public boolean forgetPassword(String login) throws RecordNotFoundException, ApplicationException {
 
 		UserBean userData = findByLogin(login);
 		boolean flag = false;
 
 		if (userData == null) {
-			throw new RecordNotFoundException("Email ID does not exists !");
+			throw new RecordNotFoundException("Email ID does not exists..!!");
 		}
 
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("login", userData.getLogin());
-		map.put("password", userData.getPassword());
-		map.put("firstName", userData.getFirstName());
-		map.put("lastName", userData.getLastName());
+		try {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login", userData.getLogin());
+			map.put("password", userData.getPassword());
+			map.put("firstName", userData.getFirstName());
+			map.put("lastName", userData.getLastName());
 
-		String message = EmailBuilder.getForgetPasswordMessage(map);
+			String message = EmailBuilder.getForgetPasswordMessage(map);
 
-		EmailMessage msg = new EmailMessage();
-		msg.setTo(login);
-		msg.setSubject("Rays ORS Password Reset");
-		msg.setMessage(message);
-		msg.setMessageType(EmailMessage.HTML_MSG);
+			EmailMessage msg = new EmailMessage();
+			msg.setTo(login);
+			msg.setSubject("ORSProject-04 Password Reset");
+			msg.setMessage(message);
+			msg.setMessageType(EmailMessage.HTML_MSG);
 
-		EmailUtility.sendMail(msg);
-
-		flag = true;
+			EmailUtility.sendMail(msg);
+			flag = true;
+		} catch (Exception e) {
+			throw new ApplicationException("Please check your internet connection..!!");
+		}
 		return flag;
 	}
 
-	public long registerUser(UserBean bean) throws ApplicationException, DuplicateRecordException {
+	public long registerUser(UserBean bean) throws DuplicateRecordException, ApplicationException {
 
 		long pk = add(bean);
 
@@ -424,8 +427,9 @@ public class UserModel {
 		String message = EmailBuilder.getUserRegistrationMessage(map);
 
 		EmailMessage msg = new EmailMessage();
+
 		msg.setTo(bean.getLogin());
-		msg.setSubject("Registration is successful for ORS Project");
+		msg.setSubject("Registration is successful for ORSProject-04");
 		msg.setMessage(message);
 		msg.setMessageType(EmailMessage.HTML_MSG);
 

@@ -30,7 +30,6 @@ public class SubjectCtl extends BaseCtl {
 			request.setAttribute("courseList", courseList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -85,6 +84,7 @@ public class SubjectCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
@@ -106,12 +106,13 @@ public class SubjectCtl extends BaseCtl {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Subject added successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Subject Name already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			SubjectBean bean = (SubjectBean) populateBean(request);
@@ -121,12 +122,13 @@ public class SubjectCtl extends BaseCtl {
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Subject updated successfully", request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Subject Name already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);

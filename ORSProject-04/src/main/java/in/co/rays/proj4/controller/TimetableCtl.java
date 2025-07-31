@@ -38,7 +38,6 @@ public class TimetableCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -117,6 +116,7 @@ public class TimetableCtl extends BaseCtl {
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
@@ -157,12 +157,13 @@ public class TimetableCtl extends BaseCtl {
 					ServletUtility.setBean(bean, request);
 					ServletUtility.setErrorMessage("Timetable already exist!", request);
 				}
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Timetable already exist!", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -185,12 +186,13 @@ public class TimetableCtl extends BaseCtl {
 					ServletUtility.setBean(bean, request);
 					ServletUtility.setErrorMessage("Timetable already exist!", request);
 				}
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				return;
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Timetable already exist!", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.TIMETABLE_LIST_CTL, request, response);

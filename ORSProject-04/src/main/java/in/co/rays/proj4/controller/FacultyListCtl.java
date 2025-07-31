@@ -135,6 +135,7 @@ public class FacultyListCtl extends BaseCtl {
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
 			return;
 		}
 	}

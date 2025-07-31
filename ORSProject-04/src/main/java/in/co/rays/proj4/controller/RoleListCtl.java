@@ -28,7 +28,6 @@ public class RoleListCtl extends BaseCtl {
 			request.setAttribute("roleList", roleList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -70,6 +69,7 @@ public class RoleListCtl extends BaseCtl {
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
 			return;
 		}
 	}
@@ -147,6 +147,7 @@ public class RoleListCtl extends BaseCtl {
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
 			return;
 		}
 	}

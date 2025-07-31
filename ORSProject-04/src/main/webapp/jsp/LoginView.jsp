@@ -74,7 +74,7 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td><a href="#"><b>Forget my password?</b></a>&nbsp;</td>
+					<td><a href="<%=ORSView.FORGET_PASSWORD_CTL%>"><b>Forget my password?</b></a>&nbsp;</td>
 				</tr>
 			</table>
 		</div>
