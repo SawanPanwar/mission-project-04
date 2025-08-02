@@ -18,7 +18,7 @@
 				the network cables, modem and router</b></font>
 	</div>
 	<h4 align="center">
-		<font size="5px" color="black"> <a href="Welcome.jsp"
+		<font size="5px" color="black"> <a href="WelcomeCtl"
 			style="color: deepskyblue;">*Please click here to Go Back*</a></font>
 	</h4>
 </html>

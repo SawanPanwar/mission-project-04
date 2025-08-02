@@ -86,13 +86,13 @@
                         RoleModel model = new RoleModel();
                         RoleBean roleBean = model.findByPk(bean.getRoleId());
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                         String date = sdf.format(bean.getDob());
                 %>
 
                 <tr>
                     <td style="text-align: center;">
-                        <input type="checkbox" name="ids" value="<%=bean.getId()%>"
+                        <input type="checkbox" class="case" name="ids" value="<%=bean.getId()%>"
                             <%= (user.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) ? "disabled" : "" %>>
                     </td>
                     <td style="text-align: center;"><%=index++%></td>

@@ -89,7 +89,7 @@
                     <td style="text-align: center; text-transform: capitalize;"><%=bean.getGender()%></td>
                     <td style="text-align: center;"><%=bean.getMobileNo()%></td>
                     <%
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                         String date = sdf.format(bean.getDob());
                     %>
                     <td style="text-align: center;"><%=date%></td>

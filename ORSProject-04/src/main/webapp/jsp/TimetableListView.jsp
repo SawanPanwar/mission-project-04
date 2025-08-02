@@ -54,14 +54,8 @@
 					<td align="right"><label><b>Course Name :</b></label> <%=HTMLUtility.getList("courseId", String.valueOf(bean.getCourseId()), courseList)%>&emsp;
 						<label><b>Subject Name :</b></label> <%=HTMLUtility.getList("subjectId", String.valueOf(bean.getSubjectId()), subjectList)%>&emsp;
 						<label><b>Exam Date :</b></label></td>
-					<td align="left"><label class="input-group"> <span
-							class="input-group-addon"> <span
-								class="glyphicon glyphicon-calendar"></span>
-						</span> <span data-datepicker date-format="MM/dd/yyyy" date-typer="true">
-								<input type="text" name="examDate"
-								placeholder="Select Date of Exam" readonly="readonly"
-								value="<%=DataUtility.getDateString(bean.getExamDate())%>">
-					</span>
+					<td align="left"><input type="text" id="udate" name="examDate" placeholder="Select Date of Birth"
+						value="<%=DataUtility.getDateString(bean.getExamDate())%>">
 				</label>&emsp; <input type="submit" name="operation"
 					value="<%=TimetableListCtl.OP_SEARCH%>">&nbsp; <input
 						type="submit" name="operation"

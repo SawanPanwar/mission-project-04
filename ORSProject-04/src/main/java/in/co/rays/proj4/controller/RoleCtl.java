@@ -89,13 +89,14 @@ public class RoleCtl extends BaseCtl {
 			RoleBean bean = (RoleBean) populateBean(request);
 
 			try {
-				long pk = model.add(bean);
-				ServletUtility.setBean(bean, request);
-				ServletUtility.setSuccessMessage("Data is successfully saved", request);
-			} catch (DuplicateRecordException e) {
-				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Role already exists", request);
-			} catch (ApplicationException e) {
+				throw new ApplicationException("error");
+//				long pk = model.add(bean);
+//				ServletUtility.setBean(bean, request);
+//				ServletUtility.setSuccessMessage("Data is successfully saved", request);
+//			} catch (DuplicateRecordException e) {
+//				ServletUtility.setBean(bean, request);
+//				ServletUtility.setErrorMessage("Role already exists", request);
+		} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;

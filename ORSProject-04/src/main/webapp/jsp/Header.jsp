@@ -7,6 +7,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Include jQuery UI -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<!-- Include jQuery UI CSS -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="/ORSProject-04/js/checkbox.js"></script>
+<script src="/ORSProject-04/js/datepicker.js"></script>
 </head>
 <body>
 	<%
@@ -63,6 +72,8 @@
 	<a href="FacultyCtl"><b>Add Faculty</b></a>
 	<b>|</b>
 	<a href="FacultyListCtl"><b>Faculty List</b></a>
+	<b>|</b>
+	<a href="doc/index.html" target="blank"><b>Java Doc</b></a>
 	<b>|</b>
 	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
