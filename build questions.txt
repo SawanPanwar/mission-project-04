@@ -1,13 +1,43 @@
 01. What is MVC (Model-View-Controller)?
-02. What are Design Patterns?
-03. What is the difference between Statement and Prepared Statement?
-04. What is a Callable Statement?
-05. What is Validations & Types?
-06. How to create a custom Checked and Unchecked Exception class in Java?
-07. What is the difference between Checked and Unchecked Exceptions?
-08. What are Class, Variable, Object, Constructor, Method, final, finally, and finalize in Java?
-09. What is OOP (Object-Oriented Programming)?
-10. What are the key concepts of OOP?
-11. What is the difference between Overloading and Overriding?
-12. What is JDBC?
-13. Difference between GET & POST?
+02. What are MVC Guidelines?
+03. What are Design Patterns and their Types?
+04. What is the difference between Statement and PreparedStatement?
+05. What is a CallableStatement?
+06. What are Validations and their Types?
+07. How do you create a custom Checked and Unchecked Exception class in Java?
+08. What is the difference between Checked and Unchecked Exceptions?
+09. What are Class, Object, Variable, Constructor, Method, final, finally, and finalize in Java?
+10. What is OOP (Object-Oriented Programming)?
+11. What are the key concepts of OOP?
+12. What is the difference between Overloading and Overriding?
+13. What is JDBC?
+14. What is the difference between GET and POST?
+15. What is a Transaction, and how are Transactions handled in your application?
+16. Explain your Project: Dependencies, Maven, pom.xml, web.xml, packages, interfaces, custom exceptions, servlet, and JSP.
+17. What is Javadoc and how do you apply it?
+18. How do you configure Log4j in your application?
+19. What is a Front Controller and how is it applied?
+20. How is a Session created, destroyed, and tracked?
+21. What are ACID Properties?
+22. What are JSP Implicit Objects?
+23. What are JSP Elements?
+24. What is the <jsp:useBean> tag?
+25. What is a JavaBean?
+26. What are the Lifecycle Methods of JSP and Servlet?
+27. What is the Servlet Hierarchy?
+28. What are Utility Classes?
+29. How do you configure Email functionality in your application?
+30. What is a WAR file and how do you create it?
+31. What is the difference between Business and Non-Business Primary Keys?
+32. What is Hyper Link & Hyper Text?
+33. Which tag is used for displaying image on page?
+34. What is ORS project?
+35. Difference between JBoss and Tomcat?
+36. Difference between Web Server & Application Server?
+37. What is BaseBean?
+38. What is BaseCtl and all methods?
+39. What is normalization?
+40. How many types of scope?
+41. Difference between session(true) and session(false)?
+42. What is DCP?
+43. What is the use of DCP?

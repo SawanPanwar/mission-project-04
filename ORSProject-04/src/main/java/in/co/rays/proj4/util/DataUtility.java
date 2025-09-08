@@ -64,12 +64,7 @@ public class DataUtility {
 		return "";
 	}
 
-	public static Date getDate(Date date, int day) {
-		return null;
-	}
-
 	public static Timestamp getTimestamp(String val) {
-
 		Timestamp timeStamp = null;
 		try {
 			timeStamp = new Timestamp((timeFormatter.parse(val)).getTime());
@@ -80,7 +75,6 @@ public class DataUtility {
 	}
 
 	public static Timestamp getTimestamp(long l) {
-
 		Timestamp timeStamp = null;
 		try {
 			timeStamp = new Timestamp(l);

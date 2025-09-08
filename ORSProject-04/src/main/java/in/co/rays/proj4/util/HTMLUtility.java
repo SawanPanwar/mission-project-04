@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import in.co.rays.proj4.bean.DropdownListBean;
-import in.co.rays.proj4.model.UserModel;
+import in.co.rays.proj4.model.RoleModel;
 
 public class HTMLUtility {
 
@@ -73,15 +73,15 @@ public class HTMLUtility {
 
 	public static void testGetListByList() throws Exception {
 
-		// RoleModel model = new RoleModel();
+		RoleModel model = new RoleModel();
 
-		UserModel model = new UserModel();
+		// UserModel model = new UserModel();
 
-		List<DropdownListBean> list = null;
+		List list = model.list();
 
-		String selectedValue = null;
+		String selectedValue = "1";
 
-		String htmlSelectFromList = HTMLUtility.getList("name", selectedValue, list);
+		String htmlSelectFromList = HTMLUtility.getList("role", selectedValue, list);
 
 		System.out.println(htmlSelectFromList);
 	}

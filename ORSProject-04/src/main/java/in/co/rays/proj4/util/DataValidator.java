@@ -218,8 +218,8 @@ public class DataValidator {
 
 		// Test isDate
 		System.out.println("\nisDate Test:");
-		System.out.println("Valid Date: '10/15/2024' -> " + isDate("10/15/2024"));
-		System.out.println("Invalid Date: '2024-10-15' -> " + isDate("2024-10-15"));
+		System.out.println("Valid Date: '01-01-2025' -> " + isDate("2025-01-01"));
+		System.out.println("Invalid Date: '10/15/2024' -> " + isDate("10/15/2024"));
 
 		// Test isSunday
 		System.out.println("\nisSunday Test:");

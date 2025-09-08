@@ -25,7 +25,7 @@ public class PropertyReader {
 	}
 
 	public static String getValue(String key, String[] params) {
-		String msg = getValue(key);
+		String msg = getValue(key); // {0} and {1} are required.
 		for (int i = 0; i < params.length; i++) {
 			msg = msg.replace("{" + i + "}", params[i]);
 		}
