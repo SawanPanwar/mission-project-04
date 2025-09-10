@@ -1,0 +1,64 @@
+01. konsa project laye ho? 
+->  ORSProject-04
+
+02. What is ORSProject-04?
+->  
+
+03. ORSProject-04 kaise banaya?
+->  Maven Project ka use kiya.
+
+04. Maven Project kaise banate?
+->  Eclipse IDE me file -> new -> maven project -> catalog (internal) -> webapp archtype 1.0 -> artifact id (in.co.rays) -> 
+->  group id (ORSProject-04) -> finish.
+
+04. pom.xml kya hai? and dependencies & versions? mysql, c3p0, mail, servlet, log4j
+05. web.xml
+06. kitne packages banaye? bean, model, ctl, util, exception
+07. packages kya hote hai? contains related classes
+08. kitni custom exception banai? & kaise? & definitions 
+09. kitni utility classes banai? & definitions
+10. kitne controller, JSP, interface banaye?
+11. Definition BaseBean, BaseCtl?
+12. konsa architecture follow kiya & definitions
+13. kon kon se design pattern use kiye & definitions & kaha pr use kiye?
+14. MVC guidelines?
+15. view kisko dekh kr banaya? wire frame
+16. controller kisko dekh kr banaya? view
+17. database kisko dekh kr banaya? er diagram
+18. bean classes kisko dekh kr banaya? uml diagram
+19. tools?
+20. technologies?
+
+
+Parent class of all Beans in application. It contains generic attributes.
+
+DropdownList interface is implemented by Beans those are used to create dropdown list on HTML pages
+
+Base controller is parent of all controllers. It contains:
+(1) Generic operations 
+(2) Generic constants 
+(3) Generic work flow
+
+   1. Singleton design pattern :- The class which have only one instance in thier lifetime are singleton classes. (JDBCDataSource)
+   2. Builder Design pattern   :- Create complex object using simple object using step by step approach. (EmailBuilder)
+   3. Factory Design Pattern   :- The class that has ability to Create object of another class is called Factory class and follows factory design pattern.
+   4. FrontCtl Design Pattern  :- (FrontController)
+
+
+Exception: abnormal condition occur during execution of program is called Exception.
+
+types: 
+checked: try-catch mandatory
+unchecked: try-catch not mandatory
+
+custom kaise banate hai:
+checked: extending by Exception class
+unchecked: extending by Runtime Exception class
+
+propagate kaise krwate hai agr handle nhi ki to:
+checked: using throws keywords
+unchecked: propagate automatically
+
+
+
+
