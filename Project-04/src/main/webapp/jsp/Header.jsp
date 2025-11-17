@@ -10,8 +10,7 @@
 <body>
 	<h3>Hi, Guest</h3>
 	<a href="WelcomeCtl"><b>Welcome</b></a> |
-	<a href="LoginCtl"><b>Login</b></a> |
-	<a href="UserRegistrationCtl"><b>Registration</b></a>
+	<a href="LoginCtl"><b>Login</b></a>
 	<hr>
 </body>
 </html>
