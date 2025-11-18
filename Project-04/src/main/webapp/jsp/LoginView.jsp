@@ -23,6 +23,18 @@
 
 		<div align="center">
 			<h1>Login</h1>
+			
+			<div style="height: 15px; margin-bottom: 12px">
+				<H3 align="center">
+					<font color="green"> <%=ServletUtility.getSuccessMessage(request)%>
+					</font>
+				</H3>
+				<H3 align="center">
+					<font color="red"> <%=ServletUtility.getErrorMessage(request)%>
+					</font>
+				</H3>
+			</div>
+			
 			<table>
 				<tr>
 					<th>Login ID:</th>
