@@ -21,7 +21,7 @@
 		(<%=session.getAttribute("role")%>)
 	</h3>
 	
-	<a href="#"><b>Add User</b></a>
+	<a href="UserCtl"><b>Add User</b></a>
 	<b>|</b>
 	<a href="#"><b>User List</b></a>
 	<b>|</b>

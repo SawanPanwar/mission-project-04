@@ -15,4 +15,7 @@ public interface ORSView {
 	public String LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
 
+	public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
+	public String USER_CTL = APP_CONTEXT + "/UserCtl";
+
 }
