@@ -23,7 +23,7 @@
 	
 	<a href="UserCtl"><b>Add User</b></a>
 	<b>|</b>
-	<a href="#"><b>User List</b></a>
+	<a href="UserListCtl"><b>User List</b></a>
 	<b>|</b>
 	<a href="#"><b>Add Role</b></a>
 	<b>|</b>

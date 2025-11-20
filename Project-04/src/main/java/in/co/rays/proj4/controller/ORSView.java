@@ -18,4 +18,7 @@ public interface ORSView {
 	public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
 	public String USER_CTL = APP_CONTEXT + "/UserCtl";
 
+	public String USER_LIST_VIEW = PAGE_FOLDER + "/UserListView.jsp";
+	public String USER_LIST_CTL = APP_CONTEXT + "/UserListCtl";
+
 }
